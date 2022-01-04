@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<title>Callum O'Riley</title>
+
+		<!-- Bootstrap core CSS -->
+		<link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet">
+		<style>
+			.img-fluid {
+				width: 500px;
+				height: auto;
+			}
+			.jumbotron { /* Also like #16298a */
+				background-color: #2a40b0!important;
+			}
+			.icon {
+				width: 16px;
+				height: 16px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header>
+			<div class="container">
+				<div class="jumbotron text-white"> <!-- Don't know if these colours will stay the same -->
+					<h1 class="text-center"><b>Callum O'Riley</b></h1>	
+				</div>
+				<div class="btn-group d-flex" role="group">
+					<a href="../index.html" class="btn btn-dark w-100">Home</a>	
+					<a href="../resume.pdf" class="btn btn-dark w-100">Resume</a>
+					<a href="../projects.html" class="btn btn-dark w-100">Projects</a>
+					<a href="../blog.html" class="btn btn-dark w-100">Blog</a>
+				</div>
+				<hr>
+			</div>
+		</header>
+		<main>
+			<div class="container text-left">
+				<h3>My own C/C++ unit testing framework</h3>
+				<time>November 1st, 2021</time>
+				<br><br>
+				<p>One of the classes that I am taking this term is CPSC 259, which is effectively an introductory computer science course for electrical engineering students at UBC. Like many programming classes, we have labs, and one of the things that they give us to help us complete the labs is a file containing all the unit tests that our lab submissions must pass. However, these unit tests are written for Microsoft's C++ unit testing framework, which means that to use them, you generally have to be running Visual Studio. I generally prefer more lightweight editors (like VSCode or Vim), so I wanted to try to re-create the unit testing framework on my own, and allow it to be used through the bash command line.</p>
+				<p>I didn't entirely know how exactly I would structure the project. I started by reading the code of the provided unit test files, to see what functions I had to implement first to get a minimum viable product the fastest. The three functions that were used were Assert::AreEqual, Assert::IsNull, and Assert::IsNotNull.</p>
+			</div>
+			<div class="container text-left">
+				<pre><p>
+					<code>
+#include "CppUnitTest.h"
+
+extern "C" {
+	#include "headerFile.h"
+}
+
+using namespace Microsoft::VisualStudio::CppUnitTestFramework;
+
+namespace UnitTests
+{
+	TEST_CLASS(UnitTest1)
+	{
+	public:
+
+		TEST_METHOD(TestMethod1)
+		{
+			// Code for one test method goes here
+		}
+		// Add more test methods as needed
+	};
+	// Add more test classes as needed
+}
+					</code>
+				</p></pre>
+			</div>
+			<div class="container text-left">	
+				<p>In addition to implementing the required test functions, I also needed to figure out how to deal with TEST_CLASS and TEST_METHOD. It's pretty clear that those are not keywords that already exist in C++, so I decided to try and deal with them using macros. I created 2 macros in a <code>CppUnitTest.h</code> file, one corresponding to TEST_CLASS and one to TEST_METHOD. I learned in a programming book that I got from a "free" bin at school that I could make a macro with a parameter, and incorporate the parameter into the replacement (e.g. <code>#define AREA(x) 3.14*x*x</code>). I did this to generate static void functions for each test class and for each test method.</p>
+
+				<p>The next thing that I needed to do was to run all of the unit test methods. I really wanted to do this in a way that didn't involve an external script or program, but in the end, I realized that it was pretty much impossible to run arbitrarily-named functions without explicitly typing their name to call them. So, I had to create a program that went through the unit test file and created a test plan. For every test class it created an object instance of that test class and for every test method it added a function call associated with the instance. It put all of these function calls and object instances in a C++ file to be compiled with the rest of the project.</p>
+				<p>Once this was done, I could simply compile every file in the unit test framework, the unit test file, and the file with the functions being tested, and then link them together and run the resulting executable, but that was quite tedious, so I wrote a pretty simple bash front-end that would automatically compile, link, and execute all the files, and then clean them all up at the end. I generally don't like writing bash scripts, because I find it a somewhat unintuitive scripting language, but the experience of writing the frontend was actually pretty smooth and one of my better bash scripting experiences.</p>
+				<p>I was able to use it for one of the in-class labs that we had, and it worked very well! I was able to use it with VSCode for the entirety of the lab, only using Visual Studio once at the end as a final check to make sure that my debugging with my unit test framework actually worked and that the test output in Visual Studio matched that of my framework. I also think that using my preferred editor and a more lightweight testing framework led to me being able to complete the lab faster, as I didn't have to deal with all the little wait times that show up when using Visual Studio.</p>
+				<p>Unfortunately, by the time I had finished the framework and used it in that lab, there were no more opportunities for me to use it, because that was the last lab where they gave us unit tests. Even though I started using it a little too late to help very much for the labs, I did learn a lot about C++ programming (specifically about namespaces), and I am still very proud of the project. It is the first time in my years of programming where I made something that was genuinely useful and helped me in a real-world task, so overall, it was a great experience!</p>
+				<p>If I had to do it again, I might write the testplan creation tool in Rust, because I've been learning Rust on the side for a couple of weeks and it seems to provide a lot of advantages over C in terms of memory safety. It just seems like a more modern version of C, and I think in a few years it will begin to eclipse C and C++ as the premier language for high-performance systems programming. With this in mind, it would be good to get more practice with it!</p>
+			</div>
+		</main>
+		<footer>
+			<div class="container text-left text-muted">
+				<hr>
+				<p>© Callum O'Riley, 2021</p>
+				<p>All images belong to their respective owners.</p>
+				<img src="https://github.githubassets.com/favicons/favicon.png" class="icon">&nbsp;&nbsp;<a href="https://github.com/callumoriley">GitHub</a><br>
+				<img src="https://image.flaticon.com/icons/png/512/174/174857.png" class="icon">&nbsp;&nbsp;<a href="https://www.google.ca">LinkedIn</a>
+				<p>📧&nbsp;callumchristopheroriley (at) gmail (dot) com</p>
+			</div>
+		</footer>
+	</body>
+
+</html>

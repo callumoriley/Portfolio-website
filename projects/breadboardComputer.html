@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<title>Callum O'Riley</title>
+
+		<!-- Bootstrap core CSS -->
+		<link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet">
+		<style>
+			.img-fluid {
+				width: 500px;
+				height: auto;
+			}
+			.jumbotron { /* Also like #16298a */
+				background-color: #2a40b0!important;
+			}
+			.icon {
+				width: 16px;
+				height: 16px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header>
+			<div class="container">
+				<div class="jumbotron text-white"> <!-- Don't know if these colours will stay the same -->
+					<h1 class="text-center"><b>Callum O'Riley</b></h1>	
+				</div>
+				<div class="btn-group d-flex" role="group">
+					<a href="../index.html" class="btn btn-dark w-100">Home</a>	
+					<a href="../resume.pdf" class="btn btn-dark w-100">Resume</a>
+					<a href="../projects.html" class="btn btn-dark w-100">Projects</a>
+					<a href="../blog.html" class="btn btn-dark w-100">Blog</a>
+				</div>
+				<hr>
+			</div>
+		</header>
+		<main>
+			<div class="container text-left">
+				<h3>Z80 breadboard computer</h3>
+				<br>
+				<p>This is a breadboard computer based around the Z80 microprocessor that I designed, built, and programmed. I had the idea and bought the parts for it in summer 2018, but I did most of the work on it from July to October 2019.</p>
+			</div>
+			<div class="container text-center">
+				<br>
+				<img src="../assets/finishedComputer.jpg" class="img-fluid">
+				<figcaption>My breadboard computer.</figcaption>
+				<br>
+			</div>
+			<div class="container text-left">
+				<br><h4>Inspiration</h4>
+				<p>I was inspired to build this computer after watching <a href="https://www.youtube.com/watch?v=nFIviiwPrLI">this</a> video on YouTube. It really helped me understand how computers work at a low level, and showed just how simple one could be.</p>
+				<br><h4>Specifications and design philosophy</h4>
+				<p>Here are the specifications for the computer:</p>
+				<ul>
+					<li>8-bit Z80 microprocessor</li>
+					<li>1-20 Hz variable clock rate</li>
+					<li>32k of RAM (128k available, but only 32k used), no ROM</li>
+					<li>Single-byte output on 8 LEDs</li>
+					<li>Reading and writing to RAM by entering binary addresses and data with 24 DIP switches</li>
+				</ul>
+				<p>An often quoted factoid about modern technology is that "(computer system for a mundane purpose) is more powerful than the Apollo Guidance Computer", and I have certainly used this to describe various computing systems in my possession. However, this computer is actually one of the rare examples where this statement is incorrect, as it is orders of magnitude slower than the AGC. The reason for its abysmal performance is that I built it to learn how computers work on a low level, and to practice assembly programming, and I wanted to be able to see it working in real time, which necessitated a slow clock rate. I also wanted to be able to program it without any external hardware, hence why there is no ROM chip. The reason it has so much RAM is because that RAM chip was cheap and available on eBay at the time, and when I bought the Z80, it was being sold by the same seller.</p>
+				<br><h4>Building the computer</h4>
+				<p>I bought the first parts for the computer on eBay in the summer of 2018, but they didn't arrive until the end of summer, which meant that I got busy with school before I could make meaningful progress on the computer. However, during the school year, I found time to design the computer and finalize what exactly I wanted it to be, which I decided to be as simple as possible while still being a fully programmable computer. I decided that I wanted it to be as simple as possible, so that I could easily learn more about assembly programming and how computers work at a low level. I started really working on it the following summer, as by then I had time and had accumulated a number of complimentary components that I needed for the project.</p>
+			</div>
+			<div class="container text-center">
+				<br>
+				<img src="../assets/earlyComputer.PNG" class="img-fluid">
+				<figcaption>The earliest iteration of my breadboard computer that I still have a picture of.</figcaption>
+				<br>
+			</div>
+			<div class="container text-left">
+				<p>I initially started out with a simple 555 timer circuit running the Z80 with all the data pins pulled low, which equated to it being constantly given the NOP instruction, which just made the program counter increase, and therefore the output on the address bus increase. This allowed me to make sure that the Z80 was working and that it would accept the clock pulses from the 555. I then wired up the data and address busses, the output circuit (which is just a logic circuit which outputs the contents of the data bus if the address requested is greater than 32767), and the switches for programming the computer.</p>
+			</div>
+			<div class="container text-center">
+				<br>
+				<img src="../assets/earlyComputer2.PNG" class="img-fluid">
+				<figcaption>More connections made, and the beginnings of the input switches.</figcaption>
+				<br>
+			</div>
+			<div class="container text-left">
+				<p>I encountered some issues, such as broken wires and not being able to properly write to the RAM chip using the switches, but after doing some debugging, reading the RAM chip datasheets, and asking for help on some online forums, I finally had a working computer! I wrote a couple of simple programs for it, such as a counting program to make sure that it was fully working, and a program to display the Fibonacci sequence.</p>
+				<br><h4>Future plans</h4>
+				<p>My future plans for the computer include writing a program to find prime numbers, and using it to validate a Z80 emulator that I'm currently working on. I would also like to try building a breadboard CPU from just logic gates at some point (something like Ben Eater's 8-bit breadboard CPU), but I would like to wait until I complete my computer architecture class this coming semester before I do that.</p>
+			</div>
+		</main>
+		<footer>
+			<div class="container text-left text-muted">
+				<hr>
+				<p>© Callum O'Riley, 2021</p>
+				<p>All images belong to their respective owners.</p>
+				<img src="https://github.githubassets.com/favicons/favicon.png" class="icon">&nbsp;&nbsp;<a href="https://github.com/callumoriley">GitHub</a><br>
+				<img src="https://image.flaticon.com/icons/png/512/174/174857.png" class="icon">&nbsp;&nbsp;<a href="https://www.google.ca">LinkedIn</a>
+				<p>📧&nbsp;callumchristopheroriley (at) gmail (dot) com</p>
+			</div>
+		</footer>
+	</body>
+
+</html>

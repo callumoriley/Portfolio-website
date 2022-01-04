@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<title>Callum O'Riley</title>
+
+		<!-- Bootstrap core CSS -->
+		<link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet">
+		<style>
+			.img-fluid {
+				width: 500px;
+				height: auto;
+			}
+			.jumbotron { /* Also like #16298a */
+				background-color: #2a40b0!important;
+			}
+			.icon {
+				width: 16px;
+				height: 16px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header>
+			<div class="container">
+				<div class="jumbotron text-white"> <!-- Don't know if these colours will stay the same -->
+					<h1 class="text-center"><b>Callum O'Riley</b></h1>	
+				</div>
+				<div class="btn-group d-flex" role="group">
+					<a href="../index.html" class="btn btn-dark w-100">Home</a>	
+					<a href="../resume.pdf" class="btn btn-dark w-100">Resume</a>
+					<a href="../projects.html" class="btn btn-dark w-100">Projects</a>
+					<a href="../blog.html" class="btn btn-dark w-100">Blog</a>
+				</div>
+				<hr>
+			</div>
+		</header>
+		<main>
+			<div class="container text-left">
+				<h3>Thermocouple amplifier circuit</h3>
+				<time>June 26th, 2021</time>
+				<br><br>
+				<p>This is a smaller project of mine that was a good introduction to analog electronics, and a good way for me to practice using op-amps.</p>
+				<p>A couple of years ago I learned about the thermoelectric effect. I thought it was so cool that you could create a voltage potential across two dissimilar conductors just by creating a temperature differential. I wanted to make a rudimentary temperature sensor using this effect.</p>
+				<p>I knew I was going to likely be using a thermocouple as the temperature sensor, as the point of this project was to learn about the thermoelectric effect. I settled on a type K thermocouple, as a) everyone else seemed to be using them and b) they were in stock at my local electronics shop. A type K thermocouple is made by joining 2 different nickel alloys: chromel and alumel, which contain a bit of chromium and aluminum respectively. It produces a voltage potential of 41 µV/°C, which is a way lower voltage than what my multimeter can measure, so I knew I would need a circuit to amplify this. I chose to use a non-inverting op-amp as my amplifier, because I wasn't super familiar with different types of amplifier circuits, and a circuit that took a voltage and multiplied it by a gain factor that could be set by some resistors looked like a good option to me.</p>
+				<p>I designed my circuit on paper first, but my lack of knowledge on op-amps </p>
+			</div>
+			<div class="container text-center">
+				<br>
+				<img src="../assets/thermocoupleAmpSchem1.png" class="img-fluid">
+				<figcaption>This is the first schematic that I made for the amplifier. Pretend that the pointy wire junction is a type K thermocouple. The battery is a 9V battery. This circuit has a gain of 24 which should turn the 41 µV/°C from the thermocouple into about 1 mV/°C on the output of the op-amp.</figcaption>
+				<br>
+			</div>
+			<div class="container text-left">
+				<p>For the op-amp I used a JRC 4565 that I had salvaged from a stereo system and I made a 23k resistor out of a 22k and a 1k resistor. I built it up and it didn't work, it always pulled the output of the op-amp to its supply voltage (minus the buffer, as the op-amp isn't rail-to-rail). I tried a bunch of things to try and make this circuit work. I tried different op-amps, different gain factors, and different supply voltages, and none of it fixed it. I learned that what was wrong with my circuit is that the voltage at the non-inverting input was outside of the common-mode range of the op-amp: the region where the op-amp works properly. It is defined as beginning at some offset above the negative voltage supplied to the op-amp to some offset below the positive voltage supplied to the op-amp. Since I was supplying the op-amp with 9V and ground, and the thermocouple produces a tiny voltage, it was outside of the common-mode range explaining this weird behaviour.</p>
+				<p>This was the answer that people gave me when I asked on electronics forums. I sort of understood it, but I didn't know how to fix it. I just wasn't experienced enough with electronics to find a solution, and I was also working on some more interesting (and more successful) projects, so unfortunately, I abandoned this project for almost 2 years.</p>
+				<p>I did all that work in the summer of 2019. However, a few weeks ago, I learned that op-amps were typically powered by +/-12V in electronics engineering laboratories, instead of just +12V and ground. I started thinking about how I could power an op-amp with a pseudo-negative voltage using a single supply, as I only had a single variable lab bench power supply available. I realized that I could power the op-amp as I was before using +12V and ground, but have the ground references of the input voltage be set to half the supply voltage using a resistor voltage divider. With this, I realized that I could finally fix the issue that had stopped this project for almost 2 years!</p>
+			</div>
+			<div class="container text-center">
+                                <br>
+                                <img src="../assets/thermocoupleAmpSchem2.png" class="img-fluid">
+                                <figcaption>This is the schematic of the second circuit that I made for the amplifier. Again, pretend that the pointy wire junction is a type K thermocouple and keep in mind that the battery is a 9V battery. I am fairly certain that the comparatively low resistance of the voltage divider should not affect the gain of the op-amp.</figcaption>
+                                <br>
+                        </div>
+			<div class="container text-left">
+				<p>When I tested this, the circuit did still output a higher voltage than I was expecting. I was expecting it to put out close to 0V, but it actually put out around 120mV (this may be because I didn't set the output bias of the op amp, which could really have an effect when amplifying microvolt-level signals). The output voltage did, however, increase when I heated up the tip of the thermocouple by breathing on it or holding it in my hand (being careful not to touch the metal junction). The output voltage also decreased when I blew on it and touched the junction to cold objects. I still need to do some analysis and tinkering with this circuit, but I am quite happy with how it's working right now, and I'm happy that I was able to (eventually) solve the problem the circuit was having and actually see the thermocouple working.</p>
+			</div>
+		</main>
+		<footer>
+			<div class="container text-left text-muted">
+				<hr>
+				<p>© Callum O'Riley, 2021</p>
+				<p>All images belong to their respective owners.</p>
+				<img src="https://github.githubassets.com/favicons/favicon.png" class="icon">&nbsp;&nbsp;<a href="https://github.com/callumoriley">GitHub</a><br>
+				<img src="https://image.flaticon.com/icons/png/512/174/174857.png" class="icon">&nbsp;&nbsp;<a href="https://www.google.ca">LinkedIn</a>
+				<p>📧&nbsp;callumchristopheroriley (at) gmail (dot) com</p>
+			</div>
+		</footer>
+	</body>
+
+</html>
