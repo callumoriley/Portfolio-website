@@ -49,7 +49,7 @@
 			</div>
 			<div class="container text-center">
 				<br>
-				<img src="../assets/thermocoupleAmpSchem1.png" class="img-fluid">
+				<img src="../assets/thermocoupleAmpSchem1.PNG" class="img-fluid">
 				<figcaption>This is the first schematic that I made for the amplifier. Pretend that the pointy wire junction is a type K thermocouple. The battery is a 9V battery. This circuit has a gain of 24 which should turn the 41 µV/°C from the thermocouple into about 1 mV/°C on the output of the op-amp.</figcaption>
 				<br>
 			</div>
@@ -59,11 +59,11 @@
 				<p>I did all that work in the summer of 2019. However, a few weeks ago, I learned that op-amps were typically powered by +/-12V in electronics engineering laboratories, instead of just +12V and ground. I started thinking about how I could power an op-amp with a pseudo-negative voltage using a single supply, as I only had a single variable lab bench power supply available. I realized that I could power the op-amp as I was before using +12V and ground, but have the ground references of the input voltage be set to half the supply voltage using a resistor voltage divider. With this, I realized that I could finally fix the issue that had stopped this project for almost 2 years!</p>
 			</div>
 			<div class="container text-center">
-                                <br>
-                                <img src="../assets/thermocoupleAmpSchem2.png" class="img-fluid">
-                                <figcaption>This is the schematic of the second circuit that I made for the amplifier. Again, pretend that the pointy wire junction is a type K thermocouple and keep in mind that the battery is a 9V battery. I am fairly certain that the comparatively low resistance of the voltage divider should not affect the gain of the op-amp.</figcaption>
-                                <br>
-                        </div>
+					<br>
+					<img src="../assets/thermocoupleAmpSchem2.PNG" class="img-fluid">
+					<figcaption>This is the schematic of the second circuit that I made for the amplifier. Again, pretend that the pointy wire junction is a type K thermocouple and keep in mind that the battery is a 9V battery. I am fairly certain that the comparatively low resistance of the voltage divider should not affect the gain of the op-amp.</figcaption>
+					<br>
+			</div>
 			<div class="container text-left">
 				<p>When I tested this, the circuit did still output a higher voltage than I was expecting. I was expecting it to put out close to 0V, but it actually put out around 120mV (this may be because I didn't set the output bias of the op amp, which could really have an effect when amplifying microvolt-level signals). The output voltage did, however, increase when I heated up the tip of the thermocouple by breathing on it or holding it in my hand (being careful not to touch the metal junction). The output voltage also decreased when I blew on it and touched the junction to cold objects. I still need to do some analysis and tinkering with this circuit, but I am quite happy with how it's working right now, and I'm happy that I was able to (eventually) solve the problem the circuit was having and actually see the thermocouple working.</p>
 			</div>
