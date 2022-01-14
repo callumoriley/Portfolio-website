@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<title>Callum O'Riley | Remote Controlled Tamiya Tracked Vehicle</title>
+
+		<!-- Bootstrap core CSS -->
+		<link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet">
+		<style>
+			.img-fluid {
+				width: 500px;
+				height: auto;
+			}
+			.jumbotron { /* Also like #16298a */
+				background-color: #2a40b0!important;
+			}
+			.icon {
+				width: 16px;
+				height: 16px;
+			}
+		</style>
+
+		<!-- Global site tag (gtag.js) - Google Analytics (for seeing how many people view the website) -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-GLWJR8MLT4"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+
+			gtag('config', 'G-GLWJR8MLT4');
+		</script>
+	</head>
+
+	<body>
+		<header>
+			<div class="container">
+				<div class="jumbotron text-white"> <!-- Don't know if these colours will stay the same -->
+					<h1 class="text-center"><b>Callum O'Riley</b></h1>	
+				</div>
+				<div class="btn-group d-flex" role="group">
+					<a href="../index.html" class="btn btn-dark w-100">Home</a>	
+					<a href="../projects.html" class="btn btn-dark w-100">Projects</a>
+					<a href="../blog.html" class="btn btn-dark w-100">Blog</a>
+				</div>
+				<hr>
+			</div>
+		</header>
+		<main>
+			<div class="container text-left">
+				<h3>Remote Controlled Tamiya Tracked Vehicle</h3>
+				<time>January 13th, 2022</time>
+				<br><br>
+				<p>I worked on this project last summer, in parallel with the spherical remote-controlled robot. I ended up reusing a lot of the code and even used the same remote controller for both projects.</p>
+				<p>I thought of this project when I saw the Tamiya track base kit available at my local electronics shop. If you don't know, Tamiya is a Japanese model kit company that mainly creates kits for full-size RC cars. They also make little mechanical robot kits/toys for kids to put together. These kits were actually my first interaction with the company, and one of my first interactions with electronics.</p>
+			</div>
+			<div class="container text-center">
+					<br>
+					<img src="https://a.pololu-files.com/picture/0J275.600x480.jpg?4b0b36027a14e315f6a63ff6243a0475" class="img-fluid">
+					<figcaption>A wall-hugging mouse kit from Tamiya that served as one of my first introductions to electric circuits. I thought it was very complex at the time but it's just a differential drive and a DPDT switch. Image is from <a href="https://www.pololu.com/product/75">here</a>.</figcaption>
+					<br>
+			</div>
+			<div class="container text-left">
+				<p>The track base kit is really 3 individual kits that when individually assembled and combined, give you a little tracked vehicle platform, upon which you can build some kind of robot. I am definitely more electrically-inclined than mechanically-inclined (I did choose electrical engineering as my degree), so the thought of having a pre-designed mechanical base that I could put together and then put some electronics on top of was very appealing to me.</p>
+			</div>
+			<div class="container text-center">
+					<br>
+					<img src="https://a.pololu-files.com/picture/0J2711.600x480.jpg?e92edca848d665668a68f1c505b28e1f" class="img-fluid">
+					<figcaption>The 3 individual kits are a "universal baseplate" as the chassis of the vehicle, a dual-motor gearbox as the main drive system of the vehicle, and a track and wheel kit as the tracks of the vehicle. Image is from <a href="https://www.pololu.com/product/106">here</a>, however I did not buy the kits from here.</figcaption>
+					<br>
+			</div>
+			<div class="container text-left">
+				<p>The electronics are pretty simple, just an Arduino Uno, an L9110s dual H-bridge switched with PWM to drive the motors, the two DC motors from the gearbox kit, a 433 MHz RF link receiver, and a 2S 1300 mAh LiPo to power everything.</p>
+				<p>There is a surprising amount of code for what should have been a simple program to receive the data from the receiver and generate PWM signals to drive the two motors. Most of this stems from the fact that I had to write code to generate the PWM signals in firmware, due to the fact that the hardware timers that the Arduino uses to generate PWM on its own are used by the RadioHead library that I used for radio communication, and that I could never get any official software PWM library to work properly. If you want to take a look at the code, it is available <a href="https://github.com/callumoriley/TrackedVehicleCode">here</a>.</p>
+				<p>There are a couple of things that I would change with this project if I were to do it again (which I definitely will, since I still have the track base). One of them is to allow the motors time to ramp up/down, because with my code, the motors were going from stopped to whatever speed I set on the remote pretty much instantly, which was pretty hard on the motors, which heated up quite a bit. Another thing I would do in the future is to add some autonomous functionality to it. I have some GPS and compass modules lying around, and I've had an idea for an autonomous robot that could do a waypoint mission for a while, and this tracked base is a perfect base for a project like that.</p>
+			</div>
+			<div class="container text-center">
+				<br>
+				<img src="../assets/drivingTest.PNG" class="img-fluid">
+				<figcaption>The vehicle during a driving test.</figcaption>
+				<br>
+				<img src="../assets/trackedVehicle.jpg" class="img-fluid">
+				<figcaption>A picture of the vehicle. I have taken off a lot of the parts for other projects, like the battery and radio receiver. This picture does show the general layout though.</figcaption>
+				<br>
+			</div>
+		</main>
+		<footer>
+			<div class="container text-left text-muted">
+				<hr>
+				<p>© Callum O'Riley, 2021</p>
+				<p>All images belong to their respective owners.</p>
+				<img src="https://github.githubassets.com/favicons/favicon.png" class="icon">&nbsp;&nbsp;<a href="https://github.com/callumoriley">GitHub</a><br>
+				<img src="https://image.flaticon.com/icons/png/512/174/174857.png" class="icon">&nbsp;&nbsp;<a href="https://www.linkedin.com/in/callum-o-riley-35316320b/">LinkedIn</a>
+				<p>📧&nbsp;callumchristopheroriley (at) gmail (dot) com</p>
+			</div>
+		</footer>
+	</body>
+
+</html>

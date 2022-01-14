@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<title>Callum O'Riley | Morse code practice program</title>
+
+		<!-- Bootstrap core CSS -->
+		<link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet">
+		<style>
+			.img-fluid {
+				width: 500px;
+				height: auto;
+			}
+			.jumbotron { /* Also like #16298a */
+				background-color: #2a40b0!important;
+			}
+			.icon {
+				width: 16px;
+				height: 16px;
+			}
+		</style>
+
+		<!-- Global site tag (gtag.js) - Google Analytics (for seeing how many people view the website) -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-GLWJR8MLT4"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+
+			gtag('config', 'G-GLWJR8MLT4');
+		</script>
+	</head>
+
+	<body>
+		<header>
+			<div class="container">
+				<div class="jumbotron text-white"> <!-- Don't know if these colours will stay the same -->
+					<h1 class="text-center"><b>Callum O'Riley</b></h1>	
+				</div>
+				<div class="btn-group d-flex" role="group">
+					<a href="../index.html" class="btn btn-dark w-100">Home</a>	
+					<a href="../projects.html" class="btn btn-dark w-100">Projects</a>
+					<a href="../blog.html" class="btn btn-dark w-100">Blog</a>
+				</div>
+				<hr>
+			</div>
+		</header>
+		<main>
+			<div class="container text-left">
+				<h3>Morse code practice program</h3>
+				<time>January 10th, 2022</time>
+				<br><br>
+				<p>I wanted to share a programming project that I worked on a few years ago, but it's one that I think is worth sharing, because it does something neat.</p>
+                <p>The program is essentially a Morse code translator, but it does more than just take Morse code and translate it into alphanumeric letters. It allows you to "tap out" a Morse letter using a keyboard key and it directly translates that Morse letter into an alphabetical letter. I wrote this program a couple of years ago, because I wanted to learn Morse code to use a website called <a href="morsecode.me">morsecode.me</a>, which is an online Morse code chat room.</p>
+                <p>Like a lot of my programs, this is written in Processing, but the reason for this one being written in Processing is that Processing has built-in ready-to-go "interrupt" functions for doing things like detecting key presses and releases, and I already knew how to use it.</p>
+				<p>The way it works is pretty simple. When you press down a key, it starts a timer, and when you release that key, it stops the timer and adds the time to an index of the array, before advancing to the next index. When the enter key is pressed, the program knows that the current letter sequence is complete, and it begins processing the times. It finds the shortest time in the sequence, and then figures out what times are close to it. If these times are less than 100 milliseconds, they are considered as dots, and if not, they are considered as dashes. Then the sequence is matched with a corresponding sequence in a text file, which tells it which letter or number the sequence corresponds to. Then that letter is appended to the sequence of letters. This way you can practice tapping out larger Morse sequence and correct your own work as you go.</p>
+			</div>
+			<div class="container text-center">
+				<br>
+				<img src="../assets/morse.PNG" class="img-fluid">
+				<figcaption>A screenshot of the very bare-bones user interface.</figcaption>
+				<br>
+			</div>
+			<div class="container text-left">
+				<p>If you want to take a look at the code, it is hosted on <a href="https://github.com/callumoriley/Morse-Code-Practice-Program">this</a> GitHub repository.</p>
+			</div>
+		</main>
+		<footer>
+			<div class="container text-left text-muted">
+				<hr>
+				<p>© Callum O'Riley, 2021</p>
+				<p>All images belong to their respective owners.</p>
+				<img src="https://github.githubassets.com/favicons/favicon.png" class="icon">&nbsp;&nbsp;<a href="https://github.com/callumoriley">GitHub</a><br>
+				<img src="https://image.flaticon.com/icons/png/512/174/174857.png" class="icon">&nbsp;&nbsp;<a href="https://www.linkedin.com/in/callum-o-riley-35316320b/">LinkedIn</a>
+				<p>📧&nbsp;callumchristopheroriley (at) gmail (dot) com</p>
+			</div>
+		</footer>
+	</body>
+
+</html>
