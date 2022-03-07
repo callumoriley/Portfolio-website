@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<title>Callum O'Riley | 3D model from CT scan images</title>
+
+		<!-- Bootstrap core CSS -->
+		<link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet">
+		<style>
+			.img-fluid {
+				width: 500px;
+				height: auto;
+			}
+			.jumbotron { /* Also like #16298a */
+				background-color: #2a40b0!important;
+			}
+			.icon {
+				width: 16px;
+				height: 16px;
+			}
+		</style>
+
+		<!-- Global site tag (gtag.js) - Google Analytics (for seeing how many people view the website) -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-GLWJR8MLT4"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+
+			gtag('config', 'G-GLWJR8MLT4');
+		</script>
+	</head>
+
+	<body>
+		<header>
+			<div class="container">
+				<div class="jumbotron text-white"> <!-- Don't know if these colours will stay the same -->
+					<h1 class="text-center"><b>Callum O'Riley</b></h1>	
+				</div>
+				<div class="btn-group d-flex" role="group">
+					<a href="../index.html" class="btn btn-dark w-100">Home</a>	
+					<a href="../projects.html" class="btn btn-dark w-100">Projects</a>
+					<a href="../blog.html" class="btn btn-dark w-100">Blog</a>
+				</div>
+				<hr>
+			</div>
+		</header>
+		<main>
+			<div class="container text-left">
+				<h3>FoilSim Airfoil Optimization Program</h3>
+				<time>March 7th, 2022</time>
+				<br><br>
+				<p>This is a really quick programming project that I did, but one that I think is pretty cool! It is an airfoil optimization program using NASA's FoilSimJS airfoil calculation code. It takes just a few flight parameters and a property to optimize, and then it finds the optimal airfoil for those parameters.</p>
+			</div>
+			<div class="container text-center">
+				<br>
+				<img src="../assets/foilSim.PNG" class="img-fluid">
+				<figcaption>A screenshot of the FoilSim Student JS user interface.</figcaption>
+				<br>	
+			</div>
+			<div class="container text-left">
+				<p>I created it because I am working on an RC airplane, and while I was originally thinking of simply making a flat wing with foamboard, I realized that it would probably lead to a relatively high angle of attack and a potentially very unstable flight (since I am planning for it to be a flying wing). I then started messing around with FoilSim to try to find an airfoil that could fit my needs, and I decided to automate the process! I have it on a GitHub repository <a href="https://github.com/callumoriley/FoilSim-Wing-Optimizer">here</a> and since it is written in JavaScript, I have it running on GitHub pages, so you can try it out in the iframe below.</p>
+			</div>
+			<div class="container text-center">
+				<br>
+				<iframe src="https://callumoriley.github.io/FoilSim-Wing-Optimizer/" height="800" width="600"></iframe>
+				<br>
+			</div>
+		</main>
+		<footer>
+			<div class="container text-left text-muted">
+				<hr>
+				<p>© Callum O'Riley, 2021</p>
+				<p>All images belong to their respective owners.</p>
+				<img src="https://github.githubassets.com/favicons/favicon.png" class="icon">&nbsp;&nbsp;<a href="https://github.com/callumoriley">GitHub</a><br>
+				<img src="https://image.flaticon.com/icons/png/512/174/174857.png" class="icon">&nbsp;&nbsp;<a href="https://www.linkedin.com/in/callum-o-riley-35316320b/">LinkedIn</a>
+				<p>📧&nbsp;callumchristopheroriley (at) gmail (dot) com</p>
+			</div>
+		</footer>
+	</body>
+
+</html>
