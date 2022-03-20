@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<title>Callum O'Riley | NanoSC BLDC Motor Driver</title>
+
+		<!-- Bootstrap core CSS -->
+		<link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet">
+		<style>
+			.img-fluid {
+				width: 500px;
+				height: auto;
+			}
+			.jumbotron { /* Also like #16298a */
+				background-color: #2a40b0!important;
+			}
+			.icon {
+				width: 16px;
+				height: 16px;
+			}
+		</style>
+
+		<!-- Global site tag (gtag.js) - Google Analytics (for seeing how many people view the website) -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-GLWJR8MLT4"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+
+			gtag('config', 'G-GLWJR8MLT4');
+		</script>
+	</head>
+
+	<body>
+		<header>
+			<div class="container">
+				<div class="jumbotron text-white"> <!-- Don't know if these colours will stay the same -->
+					<h1 class="text-center"><b>Callum O'Riley</b></h1>	
+				</div>
+				<div class="btn-group d-flex" role="group">
+					<a href="../index.html" class="btn btn-dark w-100">Home</a>	
+					<a href="../projects.html" class="btn btn-dark w-100">Projects</a>
+					<a href="../blog.html" class="btn btn-dark w-100">Blog</a>
+				</div>
+				<hr>
+			</div>
+		</header>
+		<main>
+			<div class="container text-left">
+				<h3>NanoSC BLDC Motor Driver</h3>
+				<br>
+				<p>This is an ongoing project that I'm working on. If there are any updates, they will be posted to this page.</p>
+				<p>The NanoSC BLDC motor driver is a homemade brushless DC motor driver that I have designed called the NanoSC, standing for Arduino Nano Speed Controller. The goal of the project was initially to create a device to test BLDC motors that I salvaged from old electronics, but it grew into a robust and flexible platform on which I could develop new motor control schemes. I wrote a blog post on the prototype of this device that you can read <a href="../posts/bldcDriver.html">here</a>.</p>
+			</div>
+			<div class="container text-center">
+				<br>
+				<img src="../assets/populatedPCB.jpg" class="img-fluid">
+				<figcaption>The populated PCB with the Arduino Nano on it.</figcaption>
+				<br>
+				<iframe src="https://drive.google.com/file/d/1CW_sdtF2_aDkjBpSiOSh70eWsPH_vJe8/preview" width="640" height="480" allow="autoplay"></iframe>
+				<figcaption>The motor driver spinning a motor.</figcaption>
+				<br>	
+			</div>
+			<div class="container text-left">
+				<p>The PCB design was done with AutoDesk EAGLE because I use it for my design team and will be using it for my summer internship. I basically transcribed the final circuit that I assembled on the breadboard into a new schematic, generated a rough layout for the components, and then routed the wires manually. I ordered the PCBs from JLCPCB with a purple solder mask (which didn’t look as good in person as I was hoping, likely because of the lack of a ground plane). The board took about an hour to completely solder components onto, but after that, it worked first try!</p>
+			</div>
+			<div class="container text-center">
+				<br>
+				<img src="../assets/bldcPCBdesign1.PNG" class="img-fluid">
+				<figcaption>This is the board design in AutoDesk EAGLE.</figcaption>
+				<br>
+				<img src="../assets/pcbs.jpg" class="img-fluid">
+				<figcaption>This is a bare PCB as it came from JLCPCB.</figcaption>
+				<br>	
+			</div>
+			<div class="container text-left">
+				<p>Another major update on the project is that I wrote some better code for the driver. The original Arduino code used millis() and delayMicroseconds() to generate the time events (commutating the motor, generating the PWM signal, etc.), but for the new version of the code, I learned about AVR timer interrupts and generated the time events using the ATMega328p's timer 0 (for generating the PWM signal) and timer 1 (for performing the motor commutation). As of writing this, the timer code isn't 100% perfect, and it performs worse than the original version, so the next steps in the coming weeks are to fix that code.</p>
+				<p>As this is an ongoing project, I can continually refine and improve my design. There are a few things that I am going to change in the next iteration. For one thing, the circuit needs an exact 5V input, because the Arduino is directly switching the high-side P-channel MOSFETs. In the next iteration, I will add NPN BJTs to the gates of the high-side P-channel MOSFETs to pull the high side switches low when a current is applied to the base of the BJT. This will allow the use of P-channel MOSFETs (and the ability to not use a driver IC) as high-side switches at higher motor voltages. I will also add a jumper to connect or disconnect the external power supply to the VIN pin on the Arduino, so that it could be optionally powered by USB while the motor is powered by the external supply. This would allow me to control the motor from an application on my computer in real-time, instead of just controlling it via potentiometers on the board itself. I also want to add back-EMF control by reading the voltages of the motor phases with the analog input pins of the Arduino and a voltage divider. I also want to increase the trace width of all the power traces, because seeing the traces in person really shows how small they are, and smaller traces limit the maximum allowed motor current. I also want to add a header for a Hall-effect sensor input, so that I have the option to use sensored motors in the future.</p>
+				<p>I have also put the code and schematics on a <a href="https://github.com/callumoriley/NanoSC">GitHub repository</a>, if you want to see them.</p>
+			</div>
+		</main>
+		<footer>
+			<div class="container text-left text-muted">
+				<hr>
+				<p>© Callum O'Riley, 2021</p>
+				<p>All images belong to their respective owners.</p>
+				<img src="https://github.githubassets.com/favicons/favicon.png" class="icon">&nbsp;&nbsp;<a href="https://github.com/callumoriley">GitHub</a><br>
+				<img src="https://image.flaticon.com/icons/png/512/174/174857.png" class="icon">&nbsp;&nbsp;<a href="https://www.linkedin.com/in/callum-o-riley-35316320b/">LinkedIn</a>
+				<p>📧&nbsp;callumchristopheroriley (at) gmail (dot) com</p>
+			</div>
+		</footer>
+	</body>
+
+</html>
