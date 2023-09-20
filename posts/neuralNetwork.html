@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<title>Callum O'Riley | Colour classifying neural network from scratch</title>
+
+		<!-- Bootstrap core CSS -->
+		<link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet">
+		<style>
+			.img-fluid {
+				width: 350px;
+				height: auto;
+			}
+			.jumbotron { /* Also like #16298a */
+				background-color: #2a40b0!important;
+			}
+			.icon {
+				width: 16px;
+				height: 16px;
+			}
+		</style>
+
+		<!-- Global site tag (gtag.js) - Google Analytics (for seeing how many people view the website) -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-GLWJR8MLT4"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+
+			gtag('config', 'G-GLWJR8MLT4');
+		</script>
+
+		<script>
+			if (document.title === "Callum O'Riley | Holy Land Pilgrimage") {
+				window.location.href = "https://www.notion.so/callums-holy-land-odyssey/Callum-s-Holy-Land-Pilgrimage-ba5b4b66c2fb497f94b6a505e7ae05ab?pvs=4";
+			}
+		</script>
+	</head>
+
+	<body>
+		<header>
+			<div class="container">
+				<div class="jumbotron text-white"> <!-- Don't know if these colours will stay the same -->
+					<h1 class="text-center"><b>Callum O'Riley</b></h1>	
+				</div>
+				<div class="btn-group d-flex" role="group">
+					<a href="../index.html" class="btn btn-dark w-100">Home</a>	
+					<a href="../projects.html" class="btn btn-dark w-100">Projects</a>
+					<a href="../blog.html" class="btn btn-dark w-100">Blog</a>
+					<a href="../holy_land_pilgrimage.html" class="btn btn-dark w-100">Holy Land Pilgrimage</a>
+				</div>
+				<hr>
+			</div>
+		</header>
+		<main>
+			<div class="container text-left">
+				<h3>Colour classifying neural network from scratch</h3>
+				<time>September 19th, 2023</time>
+				<br><br>
+				<p>This project is a neural network that can classify colours. In comparison to the power and usefulness of the image classifiers and large language models at the cutting edge of machine learning today, this project is little more than a toy. However it was an excellent opportunity for me to learn about how neural networks really work and it was a great way to cap off a project that I've wanted to complete for years.</p>
+				<h4>First attempts</h4>
+				<p>About 6 years ago, when I was getting a little better at programming, I decided that I wanted to make a neural network. I had heard about them from watching videos on YouTube, and I thought it would be a really cool idea to try. I thought that a good application to start with would be classifying RGB-value colours, because it's a task that is simple enough that a neural network would only have 3 inputs and 8 outputs, but it's also not too simple that a conventional program could perfectly categorize the colours that a human can. Identifying what colour something is is kind of loosely defined. A colour that I might call yellow someone else may call orange, <a href="https://en.wikipedia.org/wiki/Blue%E2%80%93green_distinction_in_language">or a colour that I might call blue someone else may call green.</a> Different people, languages, and cultures define where one colour ends and another begins differently, so this task requires a little bit of background information to complete. This background information can't just be easily entered into a computer program, it must be learned through experience, making this a perfect task for a machine learning program!</p>
+				<p>My first try used the Processing programming language and was based on what I thought a neural network was (it was really just a bunch of objects that each did a certain function in a pipeline of classifying colours, and it would "learn" by adjusting thresholds based on the error between expected and output). This didn't work very well, so I started learning a bit more about how neural networks actually work, and I started creating networks that were more like how neural networks actually are made, with an input, hidden, and output layer.</p>
+				<p>After a few failed attempts of that, I came across <a href="https://mattmazur.com/2015/03/17/a-step-by-step-backpropagation-example/">Matt Mazur's step-by-step backpropogation example</a>, which implemented a simple neural network and walked through all the calculations. This ended up being a sticking point, because at the time, I was not comfortable enough with partial derivatives and the chain rule to understand at all what was going on, so I just tried to implement what he had shown as best as I could (I also didn't look at his code because I was worried that would make it too easy!). After a few more failed attempts at that, I effectively gave up and put the project away.</p>
+				<h4>Waning and reignition of my interest in machine learning</h4>
+				<p>After this failure, I lost interest in machine learning for a while. I focused on other projects and didn't really pay attention to the advances in the field of AI. This changed when DALL-E 2 was released in about April of 2022 and other image transformers became popular around the same time. To me, transformers were something new and refreshing in the field of AI. A sharp departure from the prediction models that I had become used to hearing about, this was something with a more intelligent-seeming capability: software that seemed to understand what you were asking of it and then generate a (mostly) original image based on that request. This started to seem like real intelligence to me. I was also excited because I have always been pretty bad at art, so this was a potential avenue to create my ideas without having to learn how to draw!</p>
+				<p>Still, tasks like programming or writing emails are out of the domain of AI right? Human language is so unbelievably complex, how could a human-created program even hope to unravel the complexity of language and the precision of programming? My ignorance was proven 7 months later with the introduction of ChatGPT. With the benefit of hindsight, one can see that the technology has been building to this point for years, with <a href="http://karpathy.github.io/2015/05/21/rnn-effectiveness/">neural networks producing coherent text back in 2015</a> (and probably earlier, this is just the best example I know of early promise in text generation). I don't think that many people predicted how quickly this technology would develop and how quickly it would become an essential tool in the workplace.</p>
+				<h4>Starting again</h4>
+				<p>This all made me realize that I probably should revisit this project with 5 additional years of programming experience and a class in multivariable calculus under my belt. I followed Matt Mazur's guide again, but this time, I started by writing code that directly implemented his example in a Jupyter Notebook to verify the functionality of my computational methods. Once that was finished, I transferred that code to a script, extended it to meet the input and output requirements for colour classification, and added some extra code to automate the training process and interact with a training data file (for which I used one of the original training files that I had created in 2017 that I ended up supplementing with some additional data that I generated recently). After squashing some weird bugs, I ended up with a functional neural network that is able to identify colours quite accurately. Just for fun, I also wrote a Jupyter Notebook interface that allowed me to use sliders to change the RGB values of the colours when testing the network. A GitHub repository with the final code can be found <a href="https://github.com/callumoriley/Colour-classifying-neural-network">here</a>.</p>
+			</div>
+			<div class="container text-center">
+				<br>
+				<img src="../assets/colourClassifyingNeuralNetwork.jpg" class="img-fluid"><img src="../assets/colourClassifyingNeuralNetwork2.jpg" class="img-fluid"><img src="../assets/colourClassifyingNeuralNetwork3.jpg" class="img-fluid">
+				<figcaption>Some colours guessed by my neural network.</figcaption>
+				<br>
+			</div>
+			<div class="container text-left">
+				<h4>Future work</h4>
+				<p>I would like to do more work on machine learning projects in the near future. I would like to extend this particular network to perform digit recognition and then possibly to identifying the values of resistors by their colour bands. One idea I'm currently working on is using a GPT as a chess engine fed off world championship chess games, which I'm hoping to post some progress on relatively soon!</p>
+				<p>As a final note, when writing the working code for the neural network, I still didn't look at any of Matt's code. I like to think this shows that even in an ever-changing world, this shows that we humans still like to hold on to some things.</p>
+			</div>
+		</main>
+		<footer>
+			<div class="container text-left text-muted">
+				<hr>
+				<p>© Callum O'Riley, 2023</p>
+				<p>All images belong to their respective owners.</p>
+				<img src="https://github.githubassets.com/favicons/favicon.png" class="icon">&nbsp;&nbsp;<a href="https://github.com/callumoriley">GitHub</a><br>
+				<img src="https://static.licdn.com/sc/h/413gphjmquu9edbn2negq413a" class="icon">&nbsp;&nbsp;<a href="https://www.linkedin.com/in/callum-o-riley-35316320b/">LinkedIn</a>
+				<p>📧&nbsp;callumchristopheroriley (at) gmail (dot) com</p>
+			</div>
+		</footer>
+	</body>
+
+</html>
