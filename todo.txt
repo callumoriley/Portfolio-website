@@ -8,6 +8,8 @@ Blog posts
 - PythonLoopback
 - throttle quadrant post - DONE, just needs pictures
 Project posts
-- Finish webshooter writeup
+- put webshooter writeup into markdown and then into HTML
 - siPh biosensor
 - rocket avionics
+
+debug commonHeaderFooter.py and titlescript.py
