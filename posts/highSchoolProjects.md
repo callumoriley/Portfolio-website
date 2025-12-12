@@ -1,0 +1,35 @@
+## Electronics projects I did in high school
+
+I was going through some old photos recently, and I found some pictures of some electronics projects and interesting experiments that I did in high school. Some were more successful than others, but they all taught me a lot and really shaped my interest in electronics. I figured I would write about them to show how my interest in electronics progressed and what I explored before going to university. I thankfully documented a lot of my projects on my personal Instagram, which I never deleted any photos from.
+
+To set the scene: I didn't have a job, so my electronics hobby was funded through allowance, birthday money, odd jobs around the house. This meant that in addition to spending my money very wisely on components, I also amassed a collection of broken electronic devices that I would scavenge components off to use in my projects. Once I scored a stereo system from a back alley in my neighbourhood and got a bunch of op-amps and high-current Darlington BJTs. My need for components made me the go-to person to give broken electronics to at school. One time, some classmates saved a bunch of electronics kits that were being thrown out at a recycling center near my school that they volunteered at, and those kits ended up supplying components for some of my favourite projects (like my Z80 breadboard computer).
+
+### 4 Bit Binary Adder
+
+For a middle school STEM fair, I did a project on Boolean logic. To demonstrate it, I wanted to make a 4-bit binary adder to show how Boolean logic could be used to implement simple arithmetic. I soldered the circuit together on a perfboard (socketed ICs thankfully), and it didn't work right out of the gate. Given that I needed to get this project done for the fair, I ended up de-scoping and used a binary adder IC for the project instead. A couple months later, when I had sadly already thrown out the old circuit, I realized that my issue was likely due to my lack of pull-down resistors (rookie mistake that I learned from), so I rebuilt the circuit on a breadboard and it worked!
+
+### Arduino-Controlled 3-Axis Arm
+
+I started this project when I scavenged a small servo from a crashed RC helicopter and was able to make it move by connecting it to an Arduino. I bought two more 9 gram servos and initially 3D-printed a large 3-axis arm structure, but I quickly learned that the torque required to lift the arms was much more than the tiny servos could provide. I ended up building a far lighter structure out of some popsicle sticks and hot glue, using 3D printing for the gripper only. I wrote some Arduino code that allowed me to give the arm commands over the serial terminal so I could adjust the motor angles individually. It was a pretty simple project in hindsight, but it was my first proper project with Arduino and I learned some important lessons about matching your drive motors to your intended task.
+
+### Van de Graaff Generator
+
+This was a simple but cool project that I worked on over one of my winter breaks (December 2018). Inspired by [an ElectroBOOM video](https://www.youtube.com/watch?v=im-PLK7ePhQ), I built a Van de Graaff high-voltage electrostatic generator out of some wood pieces, a small DC motor (controlled by my variable power supply), some pantyhose and PVC pipe as the electrostatic generating material, and some aluminum cans for the capacitive top load and ground ball. I didn't get very large sparks (only a couple centimeters at most), probably due to the small motor and small top loads, but it was really cool turning static electricity into something predictable!
+
+### Tesla Coil (Slayer exciter circuit)
+
+This was another neat project that is ultimately quite simple, but produced some really cool effects. This was a small Tesla coil driven using a slayer exciter circuit, which is pretty much the simplest low-voltage Tesla coil driver that you can build. I built it by simply following a schematic I got from the internet. I initially powered it using 9V batteries (my go-to power source in my early days of electronics), but I soon graduated to my variable power supply, which improved the range from which it could light up fluorescent bulbs by quite a bit. I also added a big bulk capacitor across the power input, which also helped with range a lot. This was all also before I had an oscilloscope, so my testing was basically just making adjustments to the circuit and seeing if it was able to light up a fluorescent bulb. I never was able to get it to generate any arcs, but I've always wanted to try this project again and build a proper solid-state drive circuit and make a bigger coil.
+
+### Full Bridge Rectifier
+
+This was also a pretty simple project, but I built a full-bridge rectifier out of a transformer, some diodes, and a capacitor. This was before I had access to a variac, so my main method of getting AC voltages was by using transformers that I scavenged out of old wall-wart power supplies (I realize in retrospect the strangeness of disassembling a thing only to use its parts rebuild it from scratch, but I learned more that way). It was just a ring of 1N4007 diodes with a scavenged 820uF capacitor to smooth out the ripples. I recall it produced about 12V. 
+
+I later built a more proper DC power supply using a transformer, integrated full bridge rectifier package, capacitor, and linear regulator to power a marine radio that I got at a thrift store. Very inefficient, but it worked! I put it all in a yogurt tub to make it more portable.
+
+### Relay Boost Converter
+
+During the summer of 2019, I messed around with the idea that relays could be turned into buzzers by making them switch their coils on and off, acting as a crude form of negative feedback. I used this in a very crude boost convertor that used the relay's coil as the boost inductor as well as in generating the switching action required. I of course had a Schottky diode and a capacitor to capture the voltage spikes generated by the inductor as it was switched off, creating the desired boosted output voltage. It was able to turn a 5V supply into a 32V output, although I never actually tried powering anything off of it.
+
+### Conclusion
+
+These projects were all relatively simple, but each one of them taught me some important lessons and further demystified the world of electronics. I ended up having a relatively easy time during a lot of my circuits classes in university, and I think that was largely due to the simple projects and experiments that I did during high school. Electronics is very abstract, as you can't really see voltages and currents, and interesting functionality is often hidden within IC packages. There's a lot to be said for messing around with electronics in a very unstructured and exploratory way as a warm-up to some more formal education in electronics, as you'll approach that formal education with an intuitive basis for the abstract concepts that are getting thrown around.

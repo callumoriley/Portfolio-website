@@ -1,0 +1,12 @@
+Blog posts
+- CNC machine
+- finish audio amplifier post
+- little projects
+    - acoustic levitator
+    - geiger counter
+    - esp8266 experimentation/door notification thing
+- PythonLoopback
+Project posts
+- Finish webshooter writeup
+- siPh biosensor
+- rocket avionics
