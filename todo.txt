@@ -14,5 +14,7 @@ Project posts
 - rocket avionics
 
 debug commonHeaderFooter.py and titlescript.py
-
-test to commit on my laptop
+- work on Linux, probably a windows character parsing weird issue
+scripts need work
+- wrangle them all together into one big script
+- add a script that automatically generates blog.html and projects.html
