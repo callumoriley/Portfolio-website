@@ -8,8 +8,8 @@ Run with: python3 commonHeaderFooter.py
 """
 import os
 
-#files = os.popen("find . -type f").read().split("\n") # get a list of files with their paths. This is a Bash command, so you need at least WSL to make it work
-files = [os.path.join(root, f) for root, _, files2 in os.walk(".") for f in files2]
+files = os.popen("find . -type f").read().split("\n") # get a list of files with their paths. This is a Bash command, so you need at least WSL to make it work
+#files = [os.path.join(root, f) for root, _, files2 in os.walk(".") for f in files2]
 
 
 f = open("index.html", "r") # open index.html, read its contents into a variable, close the file

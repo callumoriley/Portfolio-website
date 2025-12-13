@@ -6,7 +6,8 @@ Blog posts
     - geiger counter
     - esp8266 experimentation/door notification thing
 - PythonLoopback
-- throttle quadrant post - DONE, just needs pictures
+- throttle quadrant post - DONE
+	- TODO: get a picture of the new setup
 Project posts
 - put webshooter writeup into markdown and then into HTML
 - siPh biosensor
