@@ -1,14 +1,14 @@
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-		<title>Callum O'Riley | Amplifier Projects</title>
-
-		<!-- Bootstrap core CSS -->
-		<link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet">
-		<style>
-			.img-fluid {
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
+  <title>
+   Callum O'Riley | Amplifier Projects
+  </title>
+  <!-- Bootstrap core CSS -->
+  <link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <style>
+   .img-fluid {
 				width: 500px;
 				height: auto;
 			}
@@ -19,75 +19,140 @@
 				width: 16px;
 				height: 16px;
 			}
-		</style>
-
-		<!-- Global site tag (gtag.js) - Google Analytics (for seeing how many people view the website) -->
-		<script async src="https://www.googletagmanager.com/gtag/js?id=G-GLWJR8MLT4"></script>
-		<script>
-			window.dataLayer = window.dataLayer || [];
+  </style>
+  <!-- Global site tag (gtag.js) - Google Analytics (for seeing how many people view the website) -->
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-GLWJR8MLT4">
+  </script>
+  <script>
+   window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
 			gtag('js', new Date());
 
 			gtag('config', 'G-GLWJR8MLT4');
-		</script>
-
-		<script>
-			if (document.title === "Callum O'Riley | Holy Land Pilgrimage") {
+  </script>
+  <script>
+   if (document.title === "Callum O'Riley | Holy Land Pilgrimage") {
 				window.location.href = "https://www.notion.so/callums-holy-land-odyssey/Callum-s-Holy-Land-Pilgrimage-ba5b4b66c2fb497f94b6a505e7ae05ab?pvs=4";
 			}
-		</script>
-	</head>
-
-	<body>
-		<header>
-			<div class="container">
-				<div class="jumbotron text-white"> <!-- Don't know if these colours will stay the same -->
-					<h1 class="text-center"><b>Callum O'Riley</b></h1>	
-				</div>
-				<div class="btn-group d-flex" role="group">
-					<a href="../index.html" class="btn btn-dark w-100">Home</a>	
-					<a href="../projects.html" class="btn btn-dark w-100">Projects</a>
-					<a href="../blog.html" class="btn btn-dark w-100">Blog</a>
-					<!-- <a href="../holy_land_pilgrimage.html" class="btn btn-dark w-100">Holy Land Pilgrimage</a> -->
-				</div>
-				<hr>
-			</div>
-		</header>
-		<main>
-            <div class="container text-left">
-				<h3>Amplifier Projects</h3>
-				<time>December 20th, 2025</time>
-				<br><br>
-			</div>
-			<div class="container text-left">
-<p>During my 3rd year, I took ELEC 301, which is our equivalent of Circuit Analysis III at UBC. The course mainly focused on analyzing BJT amplifiers, and by the end of it, I wanted to put what I had learned into action. I felt like designing and building an audio amplifier was somewhat of a rite of passage for an electrical engineer, but I also wanted a cheap but robust speaker that I could use for hosting events or general speaker needs.</p>
-<p>While conceptualizing this project, I realized that I could fill both these goals better if I instead designed and built two devices: a fully-analog amplifier where I could fully simulate every part of it and learn a lot from building it, but doesn't necessarily have to be a very practical device, and a device built around a class D amplifier IC that prioritized portability and ease of use. I ended up going down both of these paths at roughly the same time.</p>
-<h4>Class A/AB Amplifier</h3>
-<p>Since this device was not intended to be very practical and was mostly an exercise in design, I made this a single-channel audio amplifier for simplicity. I decided on a class A preamplifier using a common-emitter topology, as it made the most intuitive sense to me and seems to be a very common analog preamplifier. I initially tried to use the techniques I had learned in ELEC 301 to choose the bias resistors for maximum gain and output swing empirically, but I realized that the assumptions behind those rules don't hold as well when aiming for larger output signals. I ended up running a bunch of simulations in LTSpice to heuristically determine the resistor values, which ended up working pretty well. I found some resistor values that gave me a large gain and a reasonable output swing with no clipping. One fact that I learned more intuitively with this project than I did during 301 is that the forward transconductance of a BJT (and therefore gain of the amplifier) is proportional to the collector current through the BJT, and in my pursuit of gain I ended up with a significant amount of power loss across my BJT. </p>
-<p>For the power amplifier, I chose a class AB power amplifier to minimize crossover distortion with my relatively low gain preamplifier. I used a complimentary pair of BJTs for the power amplifiers (TIP31C and TIP32C) and added some 1N4148s with 1k resistors to eliminate the crossover distortion that one would see if they used a class B power amplifier (which doesn't include diodes or resistors).</p>
-<p>(include LTSpice picture here)</p>
-<p>My design voltage was 12V, so my output range ended up being relatively small, so I chose a pretty small 3W speaker as my output. I soldered the amplifier onto a perfboard and tested it out, and surprisingly it worked first try! One issue that I experienced was that the power amplifier transistors would go into thermal runaway over a period of a couple of minutes. This is because the gain of a BJT typically increases with temperature, which increases current through the BJTs which increases power loss. This increased the audio volume over time (by increasing their forward transconductance) but also got the transistors way too hot. I tried adding emitter resistors to the power output stage, but I found that while I could stop the thermal runaway, I incurred a severe volume penalty. Potentially a future version of this amplifier could include collector current control on the output stage to properly limit this issue, but I was pretty happy with the amplifier just working at all and didn't end up testing this before shelving the project.</p>
-<p>(include board picture here)</p>
-<p>(video?)</p>
-<h4>Class D Amplifier/Speaker</h3>
-<p>This project was more to build a practical speaker that I could use to listen to music on my own or play some music if I had some friends over. </p>
-<p>I was inspired by an <a href="https://www.youtube.com/watch?v=O1UagNkcxi4">Afrotechmods video</a> to use the TPA3122, which is an all-in-one stereo class D audio amplifier chip from TI. I started this project during our 3rd year design project class, so I put the parts for this project onto one of our last-minute Digikey orders for parts that we desperately needed to get our project working (to save on shipping costs). Mainly following the suggested application circuit, I soldered all the parts onto a perfboard right the day after my last final exam while we still had access to our project lab. It didn't work the first try, and I had to move for an internship in Victoria, so I shelved the project for a little while, but I later realized that I had skipped some 100nF capacitors that weren't in the application schematic but turned out to be important. Using some speaker drivers that a friend picked up for me from Lee's Electronics (a local electronics shop in Vancouver), I was able to properly finish the project and built an enclosure for it using some plywood I cut out with a jigsaw and a router. Once it was all together, it ended up sounding really good! It's ended up being my most useful project, as I still use it fairly often. </p>
-<p>One time, I had some friends over for dinner and they asked about playing music, and when I brought the speaker out they started laughing, but then they were pleasantly surprised by the sound quality! There's something to be said for having a speaker whose appearance sets low expectations and then rises above them when it starts playing music! </p>
-<p>(include board picture here)</p>
-<p>(video?)</p>
-<h4>Conclusion</h3>
-<p>These were both very fun projects, and I definitely learned a lot more about audio amplifiers than I expected to! It was a good example of school giving you a good starting point for a project, but ultimately striking out on your own and learning new stuff to make the project work. It's also great to test your project by listening to your favourite music through something that you built, and ultimately sharing the finished product with your friends so they enjoy it too!</p>
-</main>
-		<footer>
-			<div class="container text-left text-muted">
-				<hr>
-				<p>© Callum O'Riley, 2025</p>
-				<p>All images belong to their respective owners.</p>
-				<img src="https://github.githubassets.com/favicons/favicon.png" class="icon">&nbsp;&nbsp;<a href="https://github.com/callumoriley">GitHub</a><br>
-				<img src="https://static.licdn.com/sc/h/413gphjmquu9edbn2negq413a" class="icon">&nbsp;&nbsp;<a href="https://www.linkedin.com/in/callum-o-riley-35316320b/">LinkedIn</a>
-				<p>📧&nbsp;callumchristopheroriley (at) gmail (dot) com</p>
-			</div>
-		</footer>
-	</body>
-
+  </script>
+ </head>
+ <body>
+  <header>
+   <div class="container">
+    <div class="jumbotron text-white">
+     <!-- Don't know if these colours will stay the same -->
+     <h1 class="text-center">
+      <b>
+       Callum O'Riley
+      </b>
+     </h1>
+    </div>
+    <div class="btn-group d-flex" role="group">
+     <a class="btn btn-dark w-100" href="../index.html">
+      Home
+     </a>
+     <a class="btn btn-dark w-100" href="../projects.html">
+      Projects
+     </a>
+     <a class="btn btn-dark w-100" href="../blog.html">
+      Blog
+     </a>
+     <!-- <a href="../holy_land_pilgrimage.html" class="btn btn-dark w-100">Holy Land Pilgrimage</a> -->
+    </div>
+    <hr/>
+   </div>
+  </header>
+  <main>
+   <div class="container text-left">
+    <h3>
+     Amplifier Projects
+    </h3>
+    <time>
+     December 20th, 2025
+    </time>
+    <br/>
+    <br/>
+   </div>
+   <div class="container text-left">
+    <p>
+     During my 3rd year, I took ELEC 301, which is our equivalent of Circuit Analysis III at UBC. The course mainly focused on analyzing BJT amplifiers, and by the end of it, I wanted to put what I had learned into action. I felt like designing and building an audio amplifier was somewhat of a rite of passage for an electrical engineer, but I also wanted a cheap but robust speaker that I could use for hosting events or general speaker needs.
+    </p>
+    <p>
+     While conceptualizing this project, I realized that I could fill both these goals better if I instead designed and built two devices: a fully-analog amplifier where I could fully simulate every part of it and learn a lot from building it, but doesn't necessarily have to be a very practical device, and a device built around a class D amplifier IC that prioritized portability and ease of use. I ended up going down both of these paths at roughly the same time.
+    </p>
+    <h4>
+     Class A/AB Amplifier
+     <p>
+      Since this device was not intended to be very practical and was mostly an exercise in design, I made this a single-channel audio amplifier for simplicity. I decided on a class A preamplifier using a common-emitter topology, as it made the most intuitive sense to me and seems to be a very common analog preamplifier. I initially tried to use the techniques I had learned in ELEC 301 to choose the bias resistors for maximum gain and output swing empirically, but I realized that the assumptions behind those rules don't hold as well when aiming for larger output signals. I ended up running a bunch of simulations in LTSpice to heuristically determine the resistor values, which ended up working pretty well. I found some resistor values that gave me a large gain and a reasonable output swing with no clipping. One fact that I learned more intuitively with this project than I did during 301 is that the forward transconductance of a BJT (and therefore gain of the amplifier) is proportional to the collector current through the BJT, and in my pursuit of gain I ended up with a significant amount of power loss across my BJT.
+     </p>
+     <p>
+      For the power amplifier, I chose a class AB power amplifier to minimize crossover distortion with my relatively low gain preamplifier. I used a complimentary pair of BJTs for the power amplifiers (TIP31C and TIP32C) and added some 1N4148s with 1k resistors to eliminate the crossover distortion that one would see if they used a class B power amplifier (which doesn't include diodes or resistors).
+     </p>
+     <p>
+      (include LTSpice picture here)
+     </p>
+     <p>
+      My design voltage was 12V, so my output range ended up being relatively small, so I chose a pretty small 3W speaker as my output. I soldered the amplifier onto a perfboard and tested it out, and surprisingly it worked first try! One issue that I experienced was that the power amplifier transistors would go into thermal runaway over a period of a couple of minutes. This is because the gain of a BJT typically increases with temperature, which increases current through the BJTs which increases power loss. This increased the audio volume over time (by increasing their forward transconductance) but also got the transistors way too hot. I tried adding emitter resistors to the power output stage, but I found that while I could stop the thermal runaway, I incurred a severe volume penalty. Potentially a future version of this amplifier could include collector current control on the output stage to properly limit this issue, but I was pretty happy with the amplifier just working at all and didn't end up testing this before shelving the project.
+     </p>
+     <p>
+      (include board picture here)
+     </p>
+     <p>
+      (video?)
+     </p>
+     <h4>
+      Class D Amplifier/Speaker
+      <p>
+       This project was more to build a practical speaker that I could use to listen to music on my own or play some music if I had some friends over.
+      </p>
+      <p>
+       I was inspired by an
+       <a href="https://www.youtube.com/watch?v=O1UagNkcxi4">
+        Afrotechmods video
+       </a>
+       to use the TPA3122, which is an all-in-one stereo class D audio amplifier chip from TI. I started this project during our 3rd year design project class, so I put the parts for this project onto one of our last-minute Digikey orders for parts that we desperately needed to get our project working (to save on shipping costs). Mainly following the suggested application circuit, I soldered all the parts onto a perfboard right the day after my last final exam while we still had access to our project lab. It didn't work the first try, and I had to move for an internship in Victoria, so I shelved the project for a little while, but I later realized that I had skipped some 100nF capacitors that weren't in the application schematic but turned out to be important. Using some speaker drivers that a friend picked up for me from Lee's Electronics (a local electronics shop in Vancouver), I was able to properly finish the project and built an enclosure for it using some plywood I cut out with a jigsaw and a router. Once it was all together, it ended up sounding really good! It's ended up being my most useful project, as I still use it fairly often.
+      </p>
+      <p>
+       One time, I had some friends over for dinner and they asked about playing music, and when I brought the speaker out they started laughing, but then they were pleasantly surprised by the sound quality! There's something to be said for having a speaker whose appearance sets low expectations and then rises above them when it starts playing music!
+      </p>
+      <p>
+       (include board picture here)
+      </p>
+      <p>
+       (video?)
+      </p>
+      <h4>
+       Conclusion
+       <p>
+        These were both very fun projects, and I definitely learned a lot more about audio amplifiers than I expected to! It was a good example of school giving you a good starting point for a project, but ultimately striking out on your own and learning new stuff to make the project work. It's also great to test your project by listening to your favourite music through something that you built, and ultimately sharing the finished product with your friends so they enjoy it too!
+       </p>
+      </h4>
+     </h4>
+    </h4>
+   </div>
+  </main>
+  <footer>
+   <div class="container text-left text-muted">
+    <hr/>
+    <p>
+     © Callum O'Riley, 2025
+    </p>
+    <p>
+     All images belong to their respective owners.
+    </p>
+    <img class="icon" src="https://github.githubassets.com/favicons/favicon.png"/>
+    <a href="https://github.com/callumoriley">
+     GitHub
+    </a>
+    <br/>
+    <img class="icon" src="https://static.licdn.com/sc/h/413gphjmquu9edbn2negq413a"/>
+    <a href="https://www.linkedin.com/in/callum-o-riley-35316320b/">
+     LinkedIn
+    </a>
+    <p>
+     📧 callumchristopheroriley (at) gmail (dot) com
+    </p>
+   </div>
+  </footer>
+ </body>
 </html>

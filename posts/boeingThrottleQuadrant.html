@@ -1,14 +1,14 @@
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-		<title>Callum O'Riley | Throttle Quadrant Repair</title>
-
-		<!-- Bootstrap core CSS -->
-		<link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet">
-		<style>
-			.img-fluid {
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
+  <title>
+   Callum O'Riley | Throttle Quadrant Repair
+  </title>
+  <!-- Bootstrap core CSS -->
+  <link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <style>
+   .img-fluid {
 				width: 500px;
 				height: auto;
 			}
@@ -19,98 +19,140 @@
 				width: 16px;
 				height: 16px;
 			}
-		</style>
-
-		<!-- Global site tag (gtag.js) - Google Analytics (for seeing how many people view the website) -->
-		<script async src="https://www.googletagmanager.com/gtag/js?id=G-GLWJR8MLT4"></script>
-		<script>
-			window.dataLayer = window.dataLayer || [];
+  </style>
+  <!-- Global site tag (gtag.js) - Google Analytics (for seeing how many people view the website) -->
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-GLWJR8MLT4">
+  </script>
+  <script>
+   window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
 			gtag('js', new Date());
 
 			gtag('config', 'G-GLWJR8MLT4');
-		</script>
-
-		<script>
-			if (document.title === "Callum O'Riley | Holy Land Pilgrimage") {
+  </script>
+  <script>
+   if (document.title === "Callum O'Riley | Holy Land Pilgrimage") {
 				window.location.href = "https://www.notion.so/callums-holy-land-odyssey/Callum-s-Holy-Land-Pilgrimage-ba5b4b66c2fb497f94b6a505e7ae05ab?pvs=4";
 			}
-		</script>
-	</head>
-
-	<body>
-		<header>
-			<div class="container">
-				<div class="jumbotron text-white"> <!-- Don't know if these colours will stay the same -->
-					<h1 class="text-center"><b>Callum O'Riley</b></h1>	
-				</div>
-				<div class="btn-group d-flex" role="group">
-					<a href="../index.html" class="btn btn-dark w-100">Home</a>	
-					<a href="../projects.html" class="btn btn-dark w-100">Projects</a>
-					<a href="../blog.html" class="btn btn-dark w-100">Blog</a>
-					<!-- <a href="../holy_land_pilgrimage.html" class="btn btn-dark w-100">Holy Land Pilgrimage</a> -->
-				</div>
-				<hr>
-			</div>
-		</header>
-		<main>
-            <div class="container text-left">
-				<h3>Throttle Quadrant Repair</h3>
-				<time>December 22nd, 2025</time>
-				<br><br>
-			</div>
-			<div class="container text-left">
-<p>For my birthday a couple of years ago, my parents got me some time in a highly-accurate cockpit simulator for a Boeing 737 MAX. It was super fun to learn about all the systems in a 737 and learn a bit about the mechanics of flying a plane. It took my pre-existing interest in aviation and turned it into an obsession. To channel that obsession, I really wanted to start assembling my own flight simulator setup.</p>
-</div>
-                        <div class="container text-center">
-                                <br>
-                <img src="../assets/perlinnoise2.png" class="img-fluid">
-                <figcaption>Me in the 737 MAX simulator.</figcaption>
-                <br>
-                        </div>
-                        <div class="container text-left">
-<p>A joystick is pretty easy to get (I started with the classic Logitech Extreme 3D Pro, which is super cheap), but to increase immersion I really wanted a throttle quadrant, which is basically the device that contains the throttle levers and maybe the speedbrake and flap levers. Often ones that you can buy for simulators will have some extra utility buttons as well that you can map to other aircraft functions. Since they're for simulator players who want a higher level of immersion (most people buy just a joystick if they want to mess around with flight simulators or Elite: Dangerous), economics says they're typically more expensive, so I was on the hunt for something cheaper. I thought about building my own and actually started prototyping one when I found a Thrustmaster Boeing Throttle Quadrant on Facebook Marketplace for a very good price. The only catch was that they said that the USB connector was broken. I figured that it was something pretty simple and that I could fix it pretty easily.</p>
-
-</div>
-                        <div class="container text-center">
-                                <br>
-                <img src="../assets/throttleQuad/IMG_8732-jpeg.jpg" class="img-fluid">
-                <figcaption>The spot where the damaged USB-C connector used to be.</figcaption>
-                <br>
-                        </div>
-                        <div class="container text-left">
-
-<p>When I bought it and took a closer look at it, I realized the damage was worse than I had thought. The USB-C connector had mostly ripped off the board and was only held on by some solder on the sides. Worse still was that several critical pads had also been ripped off the board, so I was pretty dejected as I thought I had just bought a $50 paperweight (that admittedly looks super cool). Over the next couple of weeks, I mulled over several options to salvage this device and make use of it, including writing new firmware for the onboard STM32 to use another connector as a UART output and then re-creating the inputs using a Python script on the computer, re-routing all of the inputs to another microcontroller development board inside the device, or throwing it away and diving into the prototype that I had put together. My apprehension was rooted in that I initially thought that the device communicated over USB 3.0 or 3.1 because of the USB-C connector, meaning that I would have to re-make all those connections with an extremely high degree of length matching (due to the high communication speed), which I didn't think was going to be possible. This seems quite silly in hindsight, but I didn't have any experience with designing USB devices prior to this. I then realized that logically, it wouldn't make sense to design a simple USB peripheral with USB 3.0, and that the device probably communicates over USB 2.0. I confirmed this by further realizing that the STM32 used is excusively capable of USB 2.0 communications. The length-matching requirements for USB 2.0 are much more lax due to the lower bandwidth, so I felt much more comfortable attempting a repair. To perform this repair, I scratched off a bit of solder mask along the USB 2.0 communication lines, then very carefully soldered a hacked-apart USB-A cable to the slivers of exposed copper that I had made, as well as some power and ground points I found on the board. I got the polarity wrong the first time (I looked at the STM32 datasheet to determine the polarity, but I must have misunderstood something because it didn't work first try), but after swapping the data lines it worked! I then covered everything with a generous amount of superglue and hot glue and closed it all up, and I had a working throttle quadrant that I got for only $50 (plus my own time, which is always free for these kinds of projects).</p>
-</div>
-                        <div class="container text-center">
-                                <br>
-                <img src="../assets/throttleQuad/IMG_8738-jpeg.jpeg" class="img-fluid">
-                <figcaption>The repair covered in superglue and hot glue.</figcaption>
-                <br>
-                        </div>
-                        <div class="container text-left">
-<p>This was a pretty simple project, but I learned stuff all the same. I learned more about USB and the relatively lax length-matching requirements of USB 2.0, and I got some good microsoldering experience. This was another example of a technical problem that has a satisfying solution that I had to step around my first assumptions to get to, a lesson that I learn very often to this day. This project also unlocks more learning, because it lets me dive deeper into flight simulation and learn more about aircraft systems and flight mechanics. Less useful to my career, but very fun all the same!</p>
-</div>
-                        <div class="container text-center">
-                                <br>
-                <img src="../assets/throttleQuad/IMG_9012-jpeg.jpeg" class="img-fluid">
-                <figcaption>The completed flight simulator setup running Microsoft Flight Simulator X.</figcaption>
-                <br>
-		<img src="../assets/throttleQuad/IMG_9012-jpeg.jpeg" class="img-fluid">
-                <figcaption>A more recent version of my setup with rudder pedals and my new PC running Flight Simulator 2020.</figcaption>
-                <br>
-                        </div>
-		</main>
-		<footer>
-			<div class="container text-left text-muted">
-				<hr>
-				<p>© Callum O'Riley, 2025</p>
-				<p>All images belong to their respective owners.</p>
-				<img src="https://github.githubassets.com/favicons/favicon.png" class="icon">&nbsp;&nbsp;<a href="https://github.com/callumoriley">GitHub</a><br>
-				<img src="https://static.licdn.com/sc/h/413gphjmquu9edbn2negq413a" class="icon">&nbsp;&nbsp;<a href="https://www.linkedin.com/in/callum-o-riley-35316320b/">LinkedIn</a>
-				<p>📧&nbsp;callumchristopheroriley (at) gmail (dot) com</p>
-			</div>
-		</footer>
-	</body>
-
+  </script>
+ </head>
+ <body>
+  <header>
+   <div class="container">
+    <div class="jumbotron text-white">
+     <!-- Don't know if these colours will stay the same -->
+     <h1 class="text-center">
+      <b>
+       Callum O'Riley
+      </b>
+     </h1>
+    </div>
+    <div class="btn-group d-flex" role="group">
+     <a class="btn btn-dark w-100" href="../index.html">
+      Home
+     </a>
+     <a class="btn btn-dark w-100" href="../projects.html">
+      Projects
+     </a>
+     <a class="btn btn-dark w-100" href="../blog.html">
+      Blog
+     </a>
+     <!-- <a href="../holy_land_pilgrimage.html" class="btn btn-dark w-100">Holy Land Pilgrimage</a> -->
+    </div>
+    <hr/>
+   </div>
+  </header>
+  <main>
+   <div class="container text-left">
+    <h3>
+     Throttle Quadrant Repair
+    </h3>
+    <time>
+     December 22nd, 2025
+    </time>
+    <br/>
+    <br/>
+   </div>
+   <div class="container text-left">
+    <p>
+     For my birthday a couple of years ago, my parents got me some time in a highly-accurate cockpit simulator for a Boeing 737 MAX. It was super fun to learn about all the systems in a 737 and learn a bit about the mechanics of flying a plane. It took my pre-existing interest in aviation and turned it into an obsession. To channel that obsession, I really wanted to start assembling my own flight simulator setup.
+    </p>
+   </div>
+   <div class="container text-center">
+    <br/>
+    <img class="img-fluid" src="../assets/perlinnoise2.png"/>
+    <figcaption>
+     Me in the 737 MAX simulator.
+    </figcaption>
+    <br/>
+   </div>
+   <div class="container text-left">
+    <p>
+     A joystick is pretty easy to get (I started with the classic Logitech Extreme 3D Pro, which is super cheap), but to increase immersion I really wanted a throttle quadrant, which is basically the device that contains the throttle levers and maybe the speedbrake and flap levers. Often ones that you can buy for simulators will have some extra utility buttons as well that you can map to other aircraft functions. Since they're for simulator players who want a higher level of immersion (most people buy just a joystick if they want to mess around with flight simulators or Elite: Dangerous), economics says they're typically more expensive, so I was on the hunt for something cheaper. I thought about building my own and actually started prototyping one when I found a Thrustmaster Boeing Throttle Quadrant on Facebook Marketplace for a very good price. The only catch was that they said that the USB connector was broken. I figured that it was something pretty simple and that I could fix it pretty easily.
+    </p>
+   </div>
+   <div class="container text-center">
+    <br/>
+    <img class="img-fluid" src="../assets/throttleQuad/IMG_8732-jpeg.jpg"/>
+    <figcaption>
+     The spot where the damaged USB-C connector used to be.
+    </figcaption>
+    <br/>
+   </div>
+   <div class="container text-left">
+    <p>
+     When I bought it and took a closer look at it, I realized the damage was worse than I had thought. The USB-C connector had mostly ripped off the board and was only held on by some solder on the sides. Worse still was that several critical pads had also been ripped off the board, so I was pretty dejected as I thought I had just bought a $50 paperweight (that admittedly looks super cool). Over the next couple of weeks, I mulled over several options to salvage this device and make use of it, including writing new firmware for the onboard STM32 to use another connector as a UART output and then re-creating the inputs using a Python script on the computer, re-routing all of the inputs to another microcontroller development board inside the device, or throwing it away and diving into the prototype that I had put together. My apprehension was rooted in that I initially thought that the device communicated over USB 3.0 or 3.1 because of the USB-C connector, meaning that I would have to re-make all those connections with an extremely high degree of length matching (due to the high communication speed), which I didn't think was going to be possible. This seems quite silly in hindsight, but I didn't have any experience with designing USB devices prior to this. I then realized that logically, it wouldn't make sense to design a simple USB peripheral with USB 3.0, and that the device probably communicates over USB 2.0. I confirmed this by further realizing that the STM32 used is excusively capable of USB 2.0 communications. The length-matching requirements for USB 2.0 are much more lax due to the lower bandwidth, so I felt much more comfortable attempting a repair. To perform this repair, I scratched off a bit of solder mask along the USB 2.0 communication lines, then very carefully soldered a hacked-apart USB-A cable to the slivers of exposed copper that I had made, as well as some power and ground points I found on the board. I got the polarity wrong the first time (I looked at the STM32 datasheet to determine the polarity, but I must have misunderstood something because it didn't work first try), but after swapping the data lines it worked! I then covered everything with a generous amount of superglue and hot glue and closed it all up, and I had a working throttle quadrant that I got for only $50 (plus my own time, which is always free for these kinds of projects).
+    </p>
+   </div>
+   <div class="container text-center">
+    <br/>
+    <img class="img-fluid" src="../assets/throttleQuad/IMG_8738-jpeg.jpeg"/>
+    <figcaption>
+     The repair covered in superglue and hot glue.
+    </figcaption>
+    <br/>
+   </div>
+   <div class="container text-left">
+    <p>
+     This was a pretty simple project, but I learned stuff all the same. I learned more about USB and the relatively lax length-matching requirements of USB 2.0, and I got some good microsoldering experience. This was another example of a technical problem that has a satisfying solution that I had to step around my first assumptions to get to, a lesson that I learn very often to this day. This project also unlocks more learning, because it lets me dive deeper into flight simulation and learn more about aircraft systems and flight mechanics. Less useful to my career, but very fun all the same!
+    </p>
+   </div>
+   <div class="container text-center">
+    <br/>
+    <img class="img-fluid" src="../assets/throttleQuad/IMG_9012-jpeg.jpeg"/>
+    <figcaption>
+     The completed flight simulator setup running Microsoft Flight Simulator X.
+    </figcaption>
+    <br/>
+    <img class="img-fluid" src="../assets/throttleQuad/IMG_9012-jpeg.jpeg"/>
+    <figcaption>
+     A more recent version of my setup with rudder pedals and my new PC running Flight Simulator 2020.
+    </figcaption>
+    <br/>
+   </div>
+  </main>
+  <footer>
+   <div class="container text-left text-muted">
+    <hr/>
+    <p>
+     © Callum O'Riley, 2025
+    </p>
+    <p>
+     All images belong to their respective owners.
+    </p>
+    <img class="icon" src="https://github.githubassets.com/favicons/favicon.png"/>
+    <a href="https://github.com/callumoriley">
+     GitHub
+    </a>
+    <br/>
+    <img class="icon" src="https://static.licdn.com/sc/h/413gphjmquu9edbn2negq413a"/>
+    <a href="https://www.linkedin.com/in/callum-o-riley-35316320b/">
+     LinkedIn
+    </a>
+    <p>
+     📧 callumchristopheroriley (at) gmail (dot) com
+    </p>
+   </div>
+  </footer>
+ </body>
 </html>
