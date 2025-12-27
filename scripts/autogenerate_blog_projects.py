@@ -1,4 +1,56 @@
-<!DOCTYPE html>
+import os
+import re
+from datetime import datetime
+
+def parse_date_string(date_str):
+    # Remove ordinal suffixes: st, nd, rd, th
+    cleaned = re.sub(r'(\d+)(st|nd|rd|th)', r'\1', date_str)
+
+    dt = datetime.strptime(cleaned, "%B %d, %Y")
+
+    return dt
+
+def get_entry_str(date, title, path):
+    path = path.replace("../","")
+    
+    string = f"""<a class=\"list-group-item list-group-item-action\" href=\"{path}\">
+      {title}
+      <div class=\"date\">
+       {date}
+      </div>
+     </a>
+     """
+
+    return string
+
+def get_entries(directory):
+    files = os.listdir(directory)
+    paths = [os.path.join(directory, file) for file in files]
+    #print(paths)
+
+    page_titles = []
+    dates = []
+    for path in paths:
+        with open(path, "r") as f:
+            html_str = f.read()
+
+        match = re.search(r"<h3>\s*(.*?)\s*</h3>", html_str, re.DOTALL)
+        if match:
+            page_titles.append(match.group(1).strip())
+
+        if "<time>" in html_str:        
+            match = re.search(r"<time>\s*(.*?)\s*</time>", html_str, re.DOTALL)
+            if match:
+                dates.append(match.group(1).strip())
+
+    #print(page_titles)
+    #print(dates)
+    combined = zip([parse_date_string(date) for date in dates], dates, page_titles, paths)
+    sorted_combined = sorted(combined, key=lambda x: x[0], reverse=True)
+
+    return sorted_combined
+
+header = """<!DOCTYPE html>
 <html lang="en">
  <head>
   <meta charset="utf-8"/>
@@ -104,93 +156,8 @@
      This is where I write about smaller projects that are in less of a polished or finished state than the projects in the "Projects" page. I also might write on some non-technical topics.
     </p>
     <br/>
-    <div class="list-group">
-<a class="list-group-item list-group-item-action" href="posts/boeingThrottleQuadrant.html">
-      Throttle Quadrant Repair
-      <div class="date">
-       December 22nd, 2025
-      </div>
-     </a>
-     <a class="list-group-item list-group-item-action" href="posts/amplifiers.html">
-      Amplifier Projects
-      <div class="date">
-       December 20th, 2025
-      </div>
-     </a>
-     <a class="list-group-item list-group-item-action" href="posts/neuralNetwork.html">
-      Colour classifying neural network from scratch
-      <div class="date">
-       September 19th, 2023
-      </div>
-     </a>
-     <a class="list-group-item list-group-item-action" href="posts/IREC.html">
-      My experience at IREC 2022
-      <div class="date">
-       July 3rd, 2022
-      </div>
-     </a>
-     <a class="list-group-item list-group-item-action" href="posts/wingOptimizer.html">
-      FoilSim Airfoil Optimization Program
-      <div class="date">
-       March 7th, 2022
-      </div>
-     </a>
-     <a class="list-group-item list-group-item-action" href="posts/bldcDriver.html">
-      BLDC Motor Driver
-      <div class="date">
-       February 26th, 2022
-      </div>
-     </a>
-     <a class="list-group-item list-group-item-action" href="posts/arduinoPS2KeyboardLCD.html">
-      Arduino PS/2 keyboard and serial LCD
-      <div class="date">
-       January 22nd, 2022
-      </div>
-     </a>
-     <a class="list-group-item list-group-item-action" href="posts/tamiyaTrackedVehicle.html">
-      Remote Controlled Tamiya Tracked Vehicle
-      <div class="date">
-       January 13th, 2022
-      </div>
-     </a>
-     <a class="list-group-item list-group-item-action" href="posts/R2Drink2.html">
-      R2-D2 replica that dispenses alcohol
-      <div class="date">
-       January 13th, 2022
-      </div>
-     </a>
-     <a class="list-group-item list-group-item-action" href="posts/morseCode.html">
-      Morse code practice program
-      <div class="date">
-       January 10th, 2022
-      </div>
-     </a>
-     <a class="list-group-item list-group-item-action" href="posts/unitTests.html">
-      My own C/C++ unit testing framework
-      <div class="date">
-       November 1st, 2021
-      </div>
-     </a>
-     <a class="list-group-item list-group-item-action" href="posts/perlinNoise.html">
-      Perlin noise algorithm
-      <div class="date">
-       July 30th, 2021
-      </div>
-     </a>
-     <a class="list-group-item list-group-item-action" href="posts/thermocouple-amp.html">
-      Thermocouple amplifier circuit
-      <div class="date">
-       June 26th, 2021
-      </div>
-     </a>
-     <a class="list-group-item list-group-item-action" href="posts/CT-to-model.html">
-      3D model from CT scan images
-      <div class="date">
-       June 24th, 2021
-      </div>
-     </a>
-     
-</div>
+    <div class="list-group">"""
+footer = """</div>
    </div>
   </main>
   <footer>
@@ -217,4 +184,23 @@
    </div>
   </footer>
  </body>
-</html>
+</html>"""
+
+
+
+if __name__ == "__main__":
+    directory = "../posts/"
+    sorted_combined = get_entries(directory)
+    for c in sorted_combined:
+            print(c)
+
+    output_string = ""
+    for c in sorted_combined:
+        output_string += get_entry_str(c[1], c[2], c[3])
+
+    full_html = f"{header}\n{output_string}\n{footer}"
+
+    with open("../blog.html", 'w', encoding='utf-8') as file:
+        file.write(full_html)
+
+    print("Done!")

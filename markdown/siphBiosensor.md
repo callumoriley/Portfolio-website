@@ -10,7 +10,9 @@ I'm writing about this project from an electrical perspective, but this was a hi
 
 ### Requirements
 
-We recognized early on that this was going to be a very complex project on a very accelerated timeline with a very small budget, so our biggest priorities were modularity and minimizing risk. This was very much a proof-of-concept device, so it could really 
+We recognized early on that this was going to be a very complex project on a very accelerated timeline with a very small budget, so our biggest priorities were modularity, hackability, and the minimization of risk. We were very aware of the fact that we would be spending a lot of time testing the hardware and making spur-of-the-moment modifications to fix issues that arise, and we wanted to make that as easy as we possibly could. Also we were operating on a shoestring budget, only having money for two assembled prototypes, so we emphasized modularity where we could to swap things out if we needed to repair them. One example of this is that we opted to integrate the microcontroller through headers connecting to a Nucleo-144 breakout board.
+
+These requirements did mean that we opted not to optimize in some areas that we could have. For instance, our board ended up being about 10" wide by 11" tall, because we wanted to make it as easy to assemble and modify as possible.
 
 
 ### Photodiode/transimpedance amplifiers
@@ -21,7 +23,7 @@ Luckily, our signals were basically DC, so our bandwidth could be quite low and 
 
 Pursuant to our priority of modularity, we had our photodiodes mounted on breakout boards with TVS diodes to protect the pins. Photodiodes are extremely susceptible to being destroyed by ESD, so we wanted to minimize the risk of them getting destroyed as well as make it easy to replace them if they did.
 
-We chose the AD4695BCPZ ADC for it's low input-referred RMS noise and 16 input channels. We also made use of oversampling to improve the noise performance of the overall analog front end system.
+We chose the AD4695BCPZ ADC for it's low input-referred RMS noise and 16 input channels. We also made use of oversampling to improve the noise performance of the overall analog front end system. This was the first project that I truly understood the power of oversampling, and how it can basically increase your sampling resolution by a couple of bits if you're OK with a lower sampling rate. Pretty cool!
 
 ### Temperature Controller
 
@@ -43,15 +45,28 @@ That being said, the laser current had to be tuned very precisely to achieve the
 
 ### Assembly
 
-Since we were extremely budget-constrained with this project, we hand-assembled this board using solder paste, a stencil, and manual component placement. This was helpful because it meant we weren't constrained with using components that could only be found on LCSC and it meant that we didn't have four extra devices that we didn't really need. We chose our SMD components to be relatively large (0805 minimum) since they were going to be placed by hand.
+Since we were extremely budget-constrained with this project, we hand-assembled this board using solder paste, a stencil, and manual component placement. This was helpful because it meant we weren't constrained with using components that could only be found on LCSC and it meant that we didn't have four extra devices that we didn't really need. We generally chose our SMD components to be relatively large (0805s or 0603s) since they were going to be placed by hand.
 
 ### Testing
 
-Once assembly was done, we 
+Once assembly was done, we started testing everything. 
+
+Because the actual photonic integrated circuit that we planned to use was not ready by the time we needed to test, we used a device called a Fabry-Perot Interferometer, which has a somewhat similar transmission spectrum to the ring resonators that the actual circuit will use (except this passes light at its resonant peak instead of attenuating it).
 
 Since I had mainly worked on electrical design, I spent a bit of time debugging the electrical issues that we encountered, but after that I mainly stuck around for moral support and help while our more firmware- and software-oriented members made everything work together. One fun thing I was a part of was writing a driver for our temperature controller ADC (MCP3561), which I really enjoyed because I didn't have much experience writing firmware before, so I got to learn more about how a proper firmware project is structured. We initially thought it wasn't working, but after several hours of debugging we found that we were just interpreting the output wrong
 
+Honestly, the final scramble to get this project done was some of the most fun I've had in engineering ever. Staying in the engineering buildings into the early hours of the morning with my friends breathing life into this awesome project and solving problems is a culmination of everything I thought engineering school should be, and it didn't dissapoint. Celebrating the little wins and of course the epic satisfaction of when the whole project actually started working are things I'll never forget.
 
+### Evaluation
+
+A huge portion of the work we need to do for capstone is not just building the thing, but proving that it actually works like we planned it to. Due to this project's inherent scientific nature, we got a bunch of excellent data to prove that all aspects of this project work well. I've chosen a few of the graphs that we generated during that process to share here.
+
+(insert picture of overlaid sweeps here)
+
+This is by far my favourite graph of the entire project, because it shows that so many aspects of this project are working together very well:
+- The PIC temperature controller is stable enough to control the temperature of the PIC across multiple wavelength sweeps
+- The variable wavelength laser driver is stable enough to sweep the wavelength in a repeatable way across multiple wavelength sweeps
+- The photonic analog front-end is sensitive and repeatable enough to capture the wavelength response of the PIC
 
 ### Conclusion
 
@@ -59,10 +74,10 @@ This was a really challenging project, but looking back on it, I'm very grateful
 
 This project really took a village to make happen, so I want to highlight some contributions from my group members here:
 - Peter: 
-- Bennett: 
-- James: 
-- Suhail:
+- Bennett: did a massive amount of firmware work despite not having prior firmware experience, especially in writing a driver for our high resolution ADC. Designed a bit-packing algorithm so that we could send data as fast as possible across a serial interface for faster sweeps.
+- James: was a firmware and software powerhouse through this entire project
+- Suhail: designed the temperature controller firmware for this project to emphasize robustness and accuracy, achieving <0.3 millikelvin temperature drift over 10 minute tests under ambient conditions. Created a MATLAB program to perform convex optimization on a data-driven thermal model of our temperature control hardware and found optimal P, I, and D values for our system.
 
-And of course, this project wouldn't have been possible without our client Ben. He was a bit skeptical of us at first for taking on this massive project, but we ended up having an awesome working relationship with him and 
+And of course, this project wouldn't have been possible without our client Ben. He was a bit skeptical of us at first for taking on this massive project, but we ended up having an awesome working relationship with him and learned a lot from him. 
 
 https://youtu.be/5M5KTN9TVyA?si=ydhuPgo4jzZ27q71

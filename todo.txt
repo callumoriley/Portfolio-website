@@ -5,9 +5,12 @@ Blog posts
     - acoustic levitator
     - geiger counter
     - esp8266 experimentation/door notification thing
+    - matrix clock?
 - PythonLoopback
 - throttle quadrant post - DONE
 	- TODO: get a picture of the new setup
+- drone
+
 Project posts
 - put webshooter writeup into markdown and then into HTML
 - siPh biosensor
@@ -18,3 +21,8 @@ debug commonHeaderFooter.py and titlescript.py
 scripts need work
 - wrangle them all together into one big script
 - add a script that automatically generates blog.html and projects.html
+
+
+https://www.youtube.com/watch?v=EEXG0HNvsLw
+
+MAKE OUTLINES!!!
