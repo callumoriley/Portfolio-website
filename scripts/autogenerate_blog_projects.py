@@ -50,6 +50,7 @@ def get_entries(directory):
 
     return sorted_combined
 
+# TODO: maybe grab header and footer from file
 header = """<!DOCTYPE html>
 <html lang="en">
  <head>
