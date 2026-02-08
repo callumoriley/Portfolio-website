@@ -5,8 +5,7 @@
     - text done 
     - just needs pictures
 - throttle quadrant post
-    - post done
-	- TODO: get a picture of the new setup (in victoria), then can post!
+    - Done!
 - drone
     - markdown underway
     - pretty much done, just fill in some stuff on the specs and give it a final read-over

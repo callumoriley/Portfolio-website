@@ -4,9 +4,9 @@ This is a project that I've wanted to do for about a decade and had on the backb
 
 I watched a lot of FliteTest on YouTube when I was younger, and I always wanted to get into RC stuff, but it was always a little out of reach. I always wanted to build a quadcopter because I figured they would maximize my return on investment as they're probably the most versatile RC vehicle you can build. In July of 2020, I finally had the money and time (in the summer of COVID, after I had graduated high school) to work on it, so I decided to dive in and make it happen!
 
-### Initial work
+#### Initial work
 
-In hindsight, my choice of parts was very much informed from what I learned from FliteTest several years earlier and whatever I could find for cheap on eBay at the time:
+In hindsight, my choice of parts was largely informed by what I learned from FliteTest several years earlier and of course whatever I could find for cheap on eBay at the time:
 - Motors and ESCs: I chose discrete ESCs running BLHeli instead of a single combined ESC board. Came in a pack with 2206 ____kV BLDC motors, which meant that I didn't have to search for matching motors.
 - Flight controller: I chose a CC3D flight controller running LibrePilot, which was already obsolete when I bought it and is even more obsolete now. It works OK, but getting something that runs more modern firmware (like BetaFlight) and has enough memory for position hold would probably have been a better choice.
 - TX/RX: I chose a Flysky FS-i6 as the transmitter and a compatible Flysky receiver, which is a more generic RC transmitter/receiver combo than a lot of the ELRS solutions that I see a lot of newer drones use.
@@ -19,12 +19,11 @@ My first tests in 2020 did not go very well, as the default PID values led to os
 
 #### Picking up the project again
 
-When I picked up the project again in the summer of 2024, I tried cleaning the motors but realized they were too far gone (I also lost some of the C-clips that hold the rotors on and they were soldered directly to the ESCs, which made cleaning tough). I bought a new set of motors and ESCs on eBay, and this time I soldered the motors in with bullet connectors so I could swap them out or easily clean them if needed. I also replaced the receiver as I had salvaged the original receiver for another project. I designed and 3D printed a proper receiver mount and changed to the PPM communication protocol rather than have a ton of wires connected between the receiver and flight controller.
+When I picked up the project again in the summer of 2024, I tried cleaning the motors but realized they were too far gone (I also lost some of the C-clips that hold the rotors on and they were soldered directly to the ESCs, which made cleaning tough). I bought a new set of motors and ESCs on eBay, and this time I soldered the motors in with bullet connectors so I could swap them out or easily clean them if needed. I also replaced the receiver as I had since used the original receiver for another project. I designed and 3D printed a proper receiver mount and changed to the PPM communication protocol between the receiver and flight controller to cut down on the number of wires on the drone.
 
-I started tuning again this time taking a more systematic approach where I recorded my findings and PID values and made changes based on those, and I got it working quite well! I'm not much of a pilot, so it's still in attitude mode, but I can take off, land, and fly it around in a controlled way without crashing (mostly), which is honestly all I really need this project to be.
+I started tuning again this time taking a more systematic approach where I recorded my findings and PID values and made changes based on those, and I got it working quite well! I'm not much of a pilot, so it's still in attitude mode, but I can take off, land, and fly it around in a controlled way without crashing (mostly), which is honestly all I really need this project to be right now.
 
-After flying it a couple of times, it became apparent that FPV was a near requirement for a drone like this, so this past summer (in 2025) I used my newfound access to 3D printers at work to print some landing legs and an FPV mount, and I ordered an FPV camera, a 5V buck converter, and a FPV monitor. I assembled it all and did some brief bench testing to ensure that the camera and monitor worked, and then I took it to a field to test it. I had a lot of fun testing it, although by the time I got off work and got to the field it was a bit too dark for the camera to see much. Still, it was a lot of fun, and I noted down a bunch of things that I can improve for the next flight!
-
+After flying it a couple of times, it became apparent that FPV was a near requirement for a drone like this, so this past summer (in 2025) I used my newfound access to 3D printers at work to print some landing legs and an FPV camera mount, and I ordered an FPV camera, a 5V buck converter, and a FPV monitor. I assembled it all and did some brief bench testing to ensure that the camera and monitor worked, and then I took it to a field to test it. I had a lot of fun testing it, although by the time I got off work and got to the field it was a bit too dark for the camera to see much. Still, it was a lot of fun, and I noted down a bunch of things that I can improve for the next flight!
 
 #### Conclusion
 

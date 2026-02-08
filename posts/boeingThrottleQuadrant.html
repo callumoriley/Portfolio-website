@@ -75,12 +75,12 @@
    </div>
    <div class="container text-left">
     <p>
-     For my birthday a couple of years ago, my parents got me some time in a highly-accurate cockpit simulator for a Boeing 737 MAX. It was super fun to learn about all the systems in a 737 and learn a bit about the mechanics of flying a plane. It took my pre-existing interest in aviation and turned it into an obsession. To channel that obsession, I really wanted to start assembling my own flight simulator setup.
+     For my birthday a couple of years ago, my parents got me some time in a highly-accurate cockpit simulator for a Boeing 737 MAX as a birthday present. It was super fun to learn about all the systems in a 737 and learn a bit about the mechanics of flying a plane. It took my pre-existing interest in aviation and turned it into an obsession. To channel that obsession, I really wanted to start assembling my own flight simulator setup.
     </p>
    </div>
    <div class="container text-center">
     <br/>
-    <img class="img-fluid" src="../assets/perlinnoise2.png"/>
+    <img class="img-fluid" src="../assets/throttleQuad/737simulator.jpg"/>
     <figcaption>
      Me in the 737 MAX simulator.
     </figcaption>
@@ -93,6 +93,11 @@
    </div>
    <div class="container text-center">
     <br/>
+    <img class="img-fluid" src="../assets/throttleQuad/throttlequad.jpg"/>
+    <figcaption>
+     The broken throttle quadrant I got from Facebook Marketplace.
+    </figcaption>    
+    <br/>
     <img class="img-fluid" src="../assets/throttleQuad/IMG_8732-jpeg.jpg"/>
     <figcaption>
      The spot where the damaged USB-C connector used to be.
@@ -101,7 +106,8 @@
    </div>
    <div class="container text-left">
     <p>
-     When I bought it and took a closer look at it, I realized the damage was worse than I had thought. The USB-C connector had mostly ripped off the board and was only held on by some solder on the sides. Worse still was that several critical pads had also been ripped off the board, so I was pretty dejected as I thought I had just bought a $50 paperweight (that admittedly looks super cool). Over the next couple of weeks, I mulled over several options to salvage this device and make use of it, including writing new firmware for the onboard STM32 to use another connector as a UART output and then re-creating the inputs using a Python script on the computer, re-routing all of the inputs to another microcontroller development board inside the device, or throwing it away and diving into the prototype that I had put together. My apprehension was rooted in that I initially thought that the device communicated over USB 3.0 or 3.1 because of the USB-C connector, meaning that I would have to re-make all those connections with an extremely high degree of length matching (due to the high communication speed), which I didn't think was going to be possible. This seems quite silly in hindsight, but I didn't have any experience with designing USB devices prior to this. I then realized that logically, it wouldn't make sense to design a simple USB peripheral with USB 3.0, and that the device probably communicates over USB 2.0. I confirmed this by further realizing that the STM32 used is excusively capable of USB 2.0 communications. The length-matching requirements for USB 2.0 are much more lax due to the lower bandwidth, so I felt much more comfortable attempting a repair. To perform this repair, I scratched off a bit of solder mask along the USB 2.0 communication lines, then very carefully soldered a hacked-apart USB-A cable to the slivers of exposed copper that I had made, as well as some power and ground points I found on the board. I got the polarity wrong the first time (I looked at the STM32 datasheet to determine the polarity, but I must have misunderstood something because it didn't work first try), but after swapping the data lines it worked! I then covered everything with a generous amount of superglue and hot glue and closed it all up, and I had a working throttle quadrant that I got for only $50 (plus my own time, which is always free for these kinds of projects).
+     When I bought it and took a closer look at it, I realized the damage was worse than I had thought. The USB-C connector had mostly ripped off the board and was only held on by some solder on the sides. Worse still was that several critical pads had also been ripped off the board, so I was pretty dejected as I thought I had just bought a $50 paperweight (that admittedly looks super cool). Over the next couple of weeks, I mulled over several options to salvage this device and make use of it, including writing new firmware for the onboard STM32 to use another connector as a UART output and then re-creating the inputs using a Python script on the computer, re-routing all of the inputs to another microcontroller development board inside the device, or throwing it away and diving into the prototype that I had put together. </p>
+     <p>I was initially worried that the device would use USB 3.0 to connect (due to the USB-C connector), necessitating a complex soldering job with stringent length-matching requirements for multiple high-speed data channels. I then realized I was being silly, and realized that the STM32 is only capable of USB 2.0 communication. The length-matching requirements for USB 2.0 are much more lax (due to the lower bandwidth), so I felt much more comfortable attempting a repair. To perform this repair, I scratched off a bit of solder mask along the USB 2.0 communication lines, then very carefully soldered a hacked-apart USB-A cable to the slivers of exposed copper that I had made, as well as some power and ground points I found on the board. I got the polarity wrong the first time (I looked at the STM32 datasheet to determine the polarity, but I must have misunderstood something because it didn't work first try), but after swapping the data lines it worked! I then covered everything with a generous amount of superglue and hot glue and closed it all up, and I had a working throttle quadrant that I got for only $50 (plus my own time, which is always free for these kinds of projects).
     </p>
    </div>
    <div class="container text-center">
@@ -121,12 +127,12 @@
     <br/>
     <img class="img-fluid" src="../assets/throttleQuad/IMG_9012-jpeg.jpeg"/>
     <figcaption>
-     The completed flight simulator setup running Microsoft Flight Simulator X.
+     The completed flight simulator setup running Microsoft Flight Simulator X (piloting an Airbus A321).
     </figcaption>
     <br/>
-    <img class="img-fluid" src="../assets/throttleQuad/IMG_9012-jpeg.jpeg"/>
+    <img class="img-fluid" src="../assets/throttleQuad/homesimulator2.jpg"/>
     <figcaption>
-     A more recent version of my setup with rudder pedals and my new PC running Flight Simulator 2020.
+     A more recent version of my setup with rudder pedals and my new PC running Flight Simulator 2020 (piloting a Cessna 152).
     </figcaption>
     <br/>
    </div>
