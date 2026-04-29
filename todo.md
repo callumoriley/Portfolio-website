@@ -4,8 +4,6 @@
 - audio amplifier post
     - text done 
     - just needs pictures
-- throttle quadrant post
-    - Done!
 - drone
     - markdown underway
     - pretty much done, just fill in some stuff on the specs and give it a final read-over
