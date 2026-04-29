@@ -4,7 +4,7 @@
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
   <title>
-   Callum O'Riley | Simple SONAR 2D mapping system
+   Callum O'Riley | UBC Rocket Avionics
   </title>
   <!-- Bootstrap core CSS -->
   <link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
@@ -66,11 +66,20 @@
   <main>
    <div class="container text-left">
     <h3>
-     Simple SONAR 2D mapping system
+     UBC Rocket Avionics
     </h3>
     <br/>
     <p>
-     This is a simple 2D rotating SONAR mapping system built around the Arduino platform. I built it in a couple of weeks from the end of May to the beginning of June of 2021.
+     For four years during university, I was part of UBC Rocket's avionics subteam. In my second year, I was promoted to hardware lead, and got the opportunity to set the direction of our team and determine what new skills we wanted to learn.
+    </p>
+    <p>
+     Initially, I started working with a legacy avionics hardware system that had been designed by a previous team lead. We were working on an improvement, but we were also in the middle of a parts shortage and had to deal with that as well as trying to get the avionics system working. Ultimately, we weren't able to get it working in time for the competition, but we learned a
+    </p>
+    <p>
+     After IREC 2022, we were super energized and really wanted to build our own avionics hardware so that we could fly and validate our firmware. We had another competition coming up later in the summer, the inaugural Launch Canada, so we very quickly designed a minimum viable avionics system around a Teensy 3.6 board with some MOSFETs for ignition (we had 5 pyro channels onboard), an IMU and barometer for data logging (onto an SD card on the Teensy), a buzzer for conveying the state when we couldn't see the board, and some LEDs for conveying the state when we could. These boards were built on perfboard using parts from Lee's Electronics, a local electronics shop in Vancouver. We built two identical boards (one for each stage of Tantalus, our two-stage rocket launched at Launch Canada 2022), and called them "Luke" and "Leia", after the Skywalker twins from Star Wars. We ended up flying the boards on the Tantalus launch, and while they didn't actually fire off any pyro charges, we were able to validate that they would have worked, and we could have connected pyro charges on a future flight! By that point, we had set our sights on a new architecture for the avionics.
+    </p>
+    <p>
+     Our experience with the chip shortage made us realize that at any point, we could get blindsided by a part going out of stock entirely and have to majorly change our avionics hardware to cope. To solve this issue, I set our next development priority to be to build a modular avionics system, where all submodules of the avionics system were discrete hardware components that would be stacked together to form a complete avionics system. The modules were: power electronics, radio communications, sensors, ignition, and control. Responsibility for each of these modules was given to an individual team member to parallelize development. My responsibility was the control module, since it somewhat ties all the modules together. I developed a template board that all modules in the stack would use so that they could stack together easily, and then we all individually got to work. This was my first foray into developing a PCB with a discrete microcontoller on it (we chose the STM32L476 because it was in stock), and I learned a lot about what not to do when designing STM32 PCBs. The first two prototypes didn't work for somewhat indeterminate reasons (I now suspect that there was a pinout issue with the symbol we were using), so when competition rolled around I quickly developed a very low-risk microcontoller PCB that used an STM32 development board. We ended up being able to fly this, and I spent the summer diving into STM32 MCU design to make next year's microcontoller board better. This time, the board actually worked, and I kept learning.
     </p>
    </div>
    <div class="container text-center">
