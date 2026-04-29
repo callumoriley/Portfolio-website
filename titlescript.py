@@ -1,6 +1,7 @@
 import os
 
 files = os.popen("find . -type f").read().split("\n")
+#files = [os.path.join(root, f) for root, _, files2 in os.walk(".") for f in files2]
 
 for fs in files:
     if fs[2:] != "index.html" and ".html" in fs: # if the file is not the index file and the file is an HTML file
