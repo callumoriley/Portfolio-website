@@ -1,24 +1,23 @@
-import os
+"""
+Pretty-prints every HTML page so that the files stay consistently indented and diffs stay small.
+
+Run with: python3 scripts/format_html.py
+"""
 from bs4 import BeautifulSoup
 
-def format_html_file(filepath):
-    with open(filepath, "r", encoding="utf-8") as f:
-        soup = BeautifulSoup(f, "html.parser")
+from common import ROOT, html_files, read_text, write_text
 
-    formatted_html = soup.prettify()
 
-    with open(filepath, "w", encoding="utf-8") as f:
-        f.write(formatted_html)
+def format_html_file(path):
+    formatted_html = BeautifulSoup(read_text(path), "html.parser").prettify()
+    if write_text(path, formatted_html):
+        print(f"Formatted: {path.relative_to(ROOT)}")
 
-    print(f"Formatted: {filepath}")
 
-def format_all_html(root_dir="."):
-    for root, _, files in os.walk(root_dir):
-        for file in files:
-            if file.lower().endswith(".html"):
-                filepath = os.path.join(root, file)
-                format_html_file(filepath)
+def main():
+    for path in html_files():
+        format_html_file(path)
+
 
 if __name__ == "__main__":
-    format_all_html()
-
+    main()

@@ -1,0 +1,10 @@
+# GitHub Pages builds this site with Jekyll, which publishes every file it finds. Keep these out of the published site.
+# (Folders and files starting with "." or "_" are already skipped.)
+exclude:
+  - README.md
+  - todo.md
+  - requirements.txt
+  - markdown
+  - drafts
+  - scripts
+  - py-env

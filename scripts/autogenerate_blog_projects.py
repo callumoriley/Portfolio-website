@@ -1,207 +1,76 @@
-import os
+"""
+Generates blog.html and projects.html: the lists of links to every page in posts/ and projects/.
+
+Blog posts are sorted newest first, using the <time> on each post. Posts without a <time> are left out.
+Projects are sorted using PROJECT_ORDER in common.py.
+Unfinished pages go in drafts/ and are never listed.
+The head, header and footer come from index.html.
+
+Run with: python3 scripts/autogenerate_blog_projects.py
+"""
 import re
-from datetime import datetime
 
-def parse_date_string(date_str):
-    # Remove ordinal suffixes: st, nd, rd, th
-    cleaned = re.sub(r'(\d+)(st|nd|rd|th)', r'\1', date_str)
+from common import (PROJECT_ORDER, ROOT, BLOG_INTRO, PROJECTS_INTRO, format_date, get_h3, parse_date,
+                    read_text, render_page, write_text)
 
-    dt = datetime.strptime(cleaned, "%B %d, %Y")
 
-    return dt
+def get_entries(section):
+    """The (title, date, href) of every listable page in posts/ or projects/. The date is None if the page has none."""
+    entries = []
+    for path in sorted((ROOT / section).glob("*.html")):
+        href = f"{section}/{path.name}"
+        html_str = read_text(path)
+        title = get_h3(html_str)
+        if not title:
+            print(f"Skipped (no <h3> title): {href}")
+            continue
 
-def get_entry_str(date, title, path):
-    path = path.replace("../","")
-    
-    string = f"""<a class=\"list-group-item list-group-item-action\" href=\"{path}\">
-      {title}
-      <div class=\"date\">
-       {date}
-      </div>
-     </a>
-     """
-
-    return string
-
-def get_entries(directory):
-    files = os.listdir(directory)
-    paths = [os.path.join(directory, file) for file in files]
-    #print(paths)
-
-    page_titles = []
-    dates = []
-    for path in paths:
-        with open(path, "r") as f:
-            html_str = f.read()
-
-        match = re.search(r"<h3>\s*(.*?)\s*</h3>", html_str, re.DOTALL)
+        date = None
+        match = re.search(r"<time>(.*?)</time>", html_str, re.DOTALL)
         if match:
-            page_titles.append(match.group(1).strip())
-
-        if "<time>" in html_str:        
-            match = re.search(r"<time>\s*(.*?)\s*</time>", html_str, re.DOTALL)
-            if match:
-                dates.append(match.group(1).strip())
-
-    #print(page_titles)
-    #print(dates)
-    combined = zip([parse_date_string(date) for date in dates], dates, page_titles, paths)
-    sorted_combined = sorted(combined, key=lambda x: x[0], reverse=True)
-
-    return sorted_combined
-
-# TODO: maybe grab header and footer from file
-header = """<!DOCTYPE html>
-<html lang="en">
- <head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
-  <title>
-   Callum O'Riley | Blog posts
-  </title>
-  <!-- Bootstrap core CSS -->
-  <link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
-  <style>
-   .img-fluid {
+            date = parse_date(" ".join(match.group(1).split()))
+        entries.append((title, date, href))
+    return entries
 
 
-                width: 500px;
+def get_entry_str(title, date, href):
+    date_str = f'\n      <div class="date">\n       {format_date(date)}\n      </div>' if date else ""
+    return f'<a class="list-group-item list-group-item-action" href="{href}">\n      {title}{date_str}\n     </a>'
 
 
-                height: auto;
+def get_index_page(heading, intro, entries):
+    links = "\n".join(get_entry_str(*entry) for entry in entries)
+    main_html = f"""<div class="container text-left">
+<h3>{heading}</h3>
+<p>{intro}</p>
+<br/>
+<div class="list-group">
+{links}
+</div>
+</div>"""
+    return render_page(heading, main_html, depth=0)
 
 
-            }
+def main():
+    posts = []
+    for title, date, href in get_entries("posts"):
+        if date is None:
+            print(f"Skipped (no <time>): {href}")
+        else:
+            posts.append((title, date, href))
+    posts.sort(key=lambda entry: entry[1], reverse=True)
 
+    def project_key(entry):
+        name = entry[2].split("/")[-1].removesuffix(".html")
+        return (PROJECT_ORDER.index(name) if name in PROJECT_ORDER else len(PROJECT_ORDER), entry[0].lower())
 
-            .jumbotron { /* Also like #16298a */
+    projects = sorted(get_entries("projects"), key=project_key)
 
-
-                background-color: #2a40b0!important;
-
-
-            }
-
-
-            .icon {
-
-
-                width: 16px;
-
-
-                height: 16px;
-
-
-            }
-  </style>
-  <!-- Global site tag (gtag.js) - Google Analytics (for seeing how many people view the website) -->
-  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-GLWJR8MLT4">
-  </script>
-  <script>
-   window.dataLayer = window.dataLayer || [];
-
-
-            function gtag(){dataLayer.push(arguments);}
-
-
-            gtag('js', new Date());
-
-
-
-
-
-            gtag('config', 'G-GLWJR8MLT4');
-  </script>
-  <script>
-   if (document.title === "Callum O'Riley | Holy Land Pilgrimage") {
-
-
-                window.location.href = "https://www.notion.so/callums-holy-land-odyssey/Callum-s-Holy-Land-Pilgrimage-ba5b4b66c2fb497f94b6a505e7ae05ab?pvs=4";
-
-
-            }
-  </script>
- </head>
- <body>
-  <header>
-   <div class="container">
-    <div class="jumbotron text-white">
-     <!-- Don't know if these colours will stay the same -->
-     <h1 class="text-center">
-      <b>
-       Callum O'Riley
-      </b>
-     </h1>
-    </div>
-    <div class="btn-group d-flex" role="group">
-     <a class="btn btn-dark w-100" href="index.html">
-      Home
-     </a>
-     <a class="btn btn-dark w-100" href="projects.html">
-      Projects
-     </a>
-     <a class="btn btn-dark w-100" href="blog.html">
-      Blog
-     </a>
-     <!-- <a href="holy_land_pilgrimage.html" class="btn btn-dark w-100">Holy Land Pilgrimage</a> -->
-    </div>
-    <hr/>
-   </div>
-  </header>
-  <main>
-   <div class="container text-left">
-    <h3>
-     Blog posts
-    </h3>
-    <p>
-     This is where I write about smaller projects that are in less of a polished or finished state than the projects in the "Projects" page. I also might write on some non-technical topics.
-    </p>
-    <br/>
-    <div class="list-group">"""
-footer = """</div>
-   </div>
-  </main>
-  <footer>
-   <div class="container text-left text-muted">
-    <hr/>
-    <p>
-     © Callum O'Riley, 2025
-    </p>
-    <p>
-     All images belong to their respective owners.
-    </p>
-    <img class="icon" src="https://github.githubassets.com/favicons/favicon.png"/>
-    <a href="https://github.com/callumoriley">
-     GitHub
-    </a>
-    <br/>
-    <img class="icon" src="https://static.licdn.com/sc/h/413gphjmquu9edbn2negq413a"/>
-    <a href="https://www.linkedin.com/in/callum-o-riley-35316320b/">
-     LinkedIn
-    </a>
-    <p>
-     📧 callumchristopheroriley (at) gmail (dot) com
-    </p>
-   </div>
-  </footer>
- </body>
-</html>"""
-
+    for filename, heading, intro, entries in (("blog.html", "Blog posts", BLOG_INTRO, posts),
+                                              ("projects.html", "Projects", PROJECTS_INTRO, projects)):
+        changed = write_text(ROOT / filename, get_index_page(heading, intro, entries))
+        print(f"{'Generated' if changed else 'Unchanged'}: {filename} ({len(entries)} entries)")
 
 
 if __name__ == "__main__":
-    directory = "../posts/"
-    sorted_combined = get_entries(directory)
-    for c in sorted_combined:
-            print(c)
-
-    output_string = ""
-    for c in sorted_combined:
-        output_string += get_entry_str(c[1], c[2], c[3])
-
-    full_html = f"{header}\n{output_string}\n{footer}"
-
-    with open("../blog.html", 'w', encoding='utf-8') as file:
-        file.write(full_html)
-
-    print("Done!")
+    main()
