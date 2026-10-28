@@ -31,7 +31,8 @@ The site is plain HTML with Bootstrap. A few Python scripts in `scripts/` genera
 
 ## Writing a post or project in markdown
 
-The markdown converter is **only run locally**; the GitHub Action doesn't run it. After running it, commit the generated pages.
+The markdown converter runs as part of the build, which the pre-commit hook runs on every commit (see below), so the
+generated pages end up in the same commit as the markdown.
 
 1. Create `markdown/posts/<name>.md` (or `markdown/projects/<name>.md`). It becomes `posts/<name>.html`.
 2. The first line is the page title (a `#`, `##` or `###` heading). Other headings are shifted so sections become `<h4>`.
@@ -69,13 +70,13 @@ Install the dependencies once with `pip install -r requirements.txt`. All of the
 | `build_site.py` | Runs all of the above in that order. |
 | `common.py` | Shared code and settings, not run directly. |
 
-Run everything locally with:
+Run everything with:
 
 ```
 python scripts/build_site.py
 ```
 
-The Action only runs the last four scripts (see below), so it is fine to run just `page_gen.py` and commit.
+You usually don't need to: the pre-commit hook does it for you (see below).
 
 To change something on every page (a nav link, the footer, the analytics snippet), edit it in `index.html` and run the build.
 
@@ -88,11 +89,21 @@ To change something on every page (a nav link, the footer, the analytics snippet
 Anything in `posts/` or `projects/` is reachable by its URL once it is pushed to `gh-pages`, listed or not, so don't put
 unfinished pages there.
 
-## GitHub Action
+## Pre-commit hook
 
-`.github/workflows/build-site.yml` runs `autogenerate_blog_projects.py`, `common_header_footer.py`, `title_script.py` and
-`format_html.py` (as separate steps, in that order) on every push to `gh-pages` that touches pages or scripts, and on demand
-from the Actions tab. It does **not** run `page_gen.py`. If anything changed it commits the result as `github-actions[bot]`.
-On pull requests it runs the same steps but doesn't commit, so you can see if they break.
+`.githooks/pre-commit` runs `scripts/build_site.py` every time you run `git commit`, then adds the regenerated `.html`
+files to that same commit. There is no GitHub Action: nothing builds or commits on GitHub, so you never have to pull
+commits made by a bot.
 
-Because the action commits to `gh-pages`, run `git pull` before you start working.
+Git doesn't enable hooks from a cloned repository, so run this once in each clone:
+
+```
+git config core.hooksPath .githooks
+```
+
+- It uses `env/python.exe` (the conda environment in this folder) if it exists, otherwise `python3`/`python`.
+- If you have **unstaged** changes to `.html` files it stops and asks you to stage or stash them first, because the build
+  rewrites every page and would mix your changes with its own.
+- If the build crashes, the commit is aborted. Run `python scripts/build_site.py` by hand to see the error.
+- `git commit --no-verify` skips the hook for one commit.
+- Commits made on github.com don't run the hook, so run the build yourself afterwards.

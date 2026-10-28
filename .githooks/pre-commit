@@ -1,0 +1,38 @@
+#!/bin/sh
+# Rebuilds the site (scripts/build_site.py) before every commit and adds the regenerated pages to the commit.
+# Enable it once per clone with:  git config core.hooksPath .githooks
+# Skip it for one commit with:    git commit --no-verify
+
+# Use the project's conda env if it exists, otherwise whatever python on the PATH actually runs
+# (on Windows, python3 can be a Microsoft Store shortcut that doesn't)
+if [ -x env/python.exe ]; then
+    PYTHON=env/python.exe
+elif [ -x env/bin/python ]; then
+    PYTHON=env/bin/python
+else
+    PYTHON=
+    for candidate in python3 python; do
+        if "$candidate" -c "" >/dev/null 2>&1; then
+            PYTHON=$candidate
+            break
+        fi
+    done
+    if [ -z "$PYTHON" ]; then
+        echo "pre-commit: couldn't find python (looked for env/python.exe, env/bin/python, python3, python)."
+        exit 1
+    fi
+fi
+
+# The build rewrites every page, so it can't tell your unstaged edits from its own changes. Don't mix them up.
+if ! git diff --quiet -- '*.html'; then
+    echo "pre-commit: you have unstaged changes to .html files. Stage or stash them, then commit again."
+    exit 1
+fi
+
+PYTHONIOENCODING=utf-8 "$PYTHON" scripts/build_site.py > /dev/null || {
+    echo "pre-commit: scripts/build_site.py failed, run it by hand to see why."
+    exit 1
+}
+
+# Put the regenerated pages in this commit
+git add -A -- '*.html'

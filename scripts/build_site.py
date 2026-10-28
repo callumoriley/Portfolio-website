@@ -1,5 +1,5 @@
 """
-Runs all of the site scripts in order. This is what the GitHub Action runs.
+Runs all of the site scripts in order. The pre-commit hook (.githooks/pre-commit) runs this before every commit.
 
     1. page_gen                    markdown/  ->  posts/ and projects/ pages
     2. autogenerate_blog_projects  blog.html and projects.html (lists of links)
