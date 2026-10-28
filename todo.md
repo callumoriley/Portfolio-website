@@ -29,8 +29,6 @@
 ## Project posts
 - webshooter
     - markdown done
-    - being edited
-    - need pictures from home PC :(((((
 - siPh biosensor
     - markdown in progress
 - rocket avionics
