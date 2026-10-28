@@ -28,7 +28,7 @@
 
 ## Project posts
 - webshooter
-    - markdown done
+    - done!
 - siPh biosensor
     - markdown in progress
 - rocket avionics
@@ -58,3 +58,4 @@
 ## Misc
 - https://www.youtube.com/watch?v=EEXG0HNvsLw
 - MAKE OUTLINES!!!
+- maybe do some more cleanup and re-create this repo to remove past history
