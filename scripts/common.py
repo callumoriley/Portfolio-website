@@ -12,7 +12,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 DRAFTS_DIR = ROOT / "drafts"
 SITE_NAME = "Callum O'Riley"
-SKIP_DIRS = {"py-env", "venv", "node_modules", "markdown", "assets", "scripts"}
+SKIP_DIRS = {"env", "venv", "node_modules", "markdown", "assets", "scripts"}
 
 # Text shown above the lists on the generated index pages
 BLOG_INTRO = 'This is where I write about smaller projects that are in less of a polished or finished state than the projects in the "Projects" page. I also might write on some non-technical topics.'
