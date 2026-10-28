@@ -9,9 +9,11 @@
   <!-- Bootstrap core CSS -->
   <link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
   <style>
-   .img-fluid {
-				width: 500px;
+   .img-fluid { /* images fit inside a 500x500 box, and shrink on narrow screens */
+				width: auto;
 				height: auto;
+				max-width: min(100%, 500px);
+				max-height: 500px;
 			}
 			.jumbotron { /* Also like #16298a */
 				background-color: #2a40b0!important;

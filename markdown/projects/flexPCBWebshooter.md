@@ -1,3 +1,6 @@
+---
+date: 2026-10-28
+---
 ### Flex PCB Webshooter
 
 I'm excited to finally share a project I had on the backburner for a couple years, got working almost a year ago, and haven't posted until now! This is a wrist-wearable device built around a flex PCB. Its main features, which are accessed through a capacitive touch sensor that extends into the palm, are some white LEDs for illumination and an IR blaster that can send IR commands to nearby devices. It is heavily inspired by the webshooters from the Spider-Man comics and movies.

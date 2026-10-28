@@ -38,7 +38,9 @@ generated pages end up in the same commit as the markdown.
 2. The first line is the page title (a `#`, `##` or `###` heading). Other headings are shifted so sections become `<h4>`.
    Whatever level the title is, the headings under it keep their relative order.
 3. Images: `![Caption shown under the image](../assets/folder/picture.jpg)` on a line of its own.
-   Raw HTML (like an `<iframe>` for a video) works too.
+   Videos: an `<iframe>` on a line of its own, and its `title` becomes the caption:
+   `<iframe src="https://drive.google.com/file/d/…/preview" width="640" height="360" allow="autoplay" allowfullscreen title="Caption"></iframe>`.
+   Both are centered automatically. Other raw HTML works too.
 4. When it's ready to publish, add a date at the very top of the file:
 
    ```

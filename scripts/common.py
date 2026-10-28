@@ -6,8 +6,11 @@ The scripts in this folder can be run from any directory, as all paths are resol
 """
 import os
 import re
+import time
 from datetime import datetime
 from pathlib import Path
+
+WRITE_ATTEMPTS = 5
 
 ROOT = Path(__file__).resolve().parent.parent
 DRAFTS_DIR = ROOT / "drafts"
@@ -32,9 +35,16 @@ def write_text(path, text):
     """Writes the file with LF line endings. Returns True if the contents changed."""
     if Path(path).exists() and read_text(path) == text:
         return False
-    with open(path, "w", encoding="utf-8", newline="\n") as f:
-        f.write(text)
-    return True
+    for attempt in range(1, WRITE_ATTEMPTS + 1):
+        try:
+            with open(path, "w", encoding="utf-8", newline="\n") as f:
+                f.write(text)
+            return True
+        except OSError:
+            # On Windows, OneDrive can briefly lock a file it is syncing and the write fails with "Invalid argument"
+            if attempt == WRITE_ATTEMPTS:
+                raise
+            time.sleep(0.5 * attempt)
 
 
 def html_files():

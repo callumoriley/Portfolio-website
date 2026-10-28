@@ -7,6 +7,8 @@ Generates HTML pages from the markdown files in markdown/.
 The page's head, header and footer come from index.html. The first heading of the markdown file becomes the page title,
 and the other headings are shifted so that sections end up as <h4> (like the hand-written pages).
 
+Images and videos (an <iframe> on its own line) are centered with a caption: the image's alt text, or the iframe's title.
+
 A markdown file can start with a front matter block:
 
     ---
@@ -67,23 +69,53 @@ def render_markdown(body, heading_shift):
     return md.renderer.render(tokens, md.options, {})
 
 
-def style_images(body_html):
-    """Gives images the site's img-fluid class, and turns an image on its own line into a centered figure with a caption."""
+def center_figure(soup, element, caption_text):
+    """Replaces an image or iframe that is on its own line with the centered block with a caption used on the other pages."""
+    parent = element.parent
+    if any(p.name == "div" and "text-center" in p.get("class", []) for p in element.parents):
+        return  # already centered by hand in the markdown
+    figure = soup.new_tag("div", attrs={"class": "text-center"})
+    figure.append(soup.new_tag("br"))
+    if parent.name == "p" and len(parent.contents) == 1:
+        element.extract()
+        parent.replace_with(figure)
+    else:
+        element.replace_with(figure)
+    figure.append(element)
+    if caption_text:
+        caption = soup.new_tag("figcaption")
+        caption.string = caption_text
+        figure.append(caption)
+    figure.append(soup.new_tag("br"))
+
+
+def make_responsive(iframe):
+    """Lets an iframe shrink on narrow screens (phones) instead of overflowing, keeping its width:height proportions."""
+    style = "max-width: 100%;"
+    if str(iframe.get("width", "")).isdigit() and str(iframe.get("height", "")).isdigit():
+        style += f" height: auto; aspect-ratio: {iframe['width']} / {iframe['height']};"
+    iframe["style"] = (iframe.get("style", "").rstrip("; ") + "; " if iframe.get("style") else "") + style
+
+
+def style_content(body_html, space_headings):
+    """
+    Makes the markdown's HTML look like the hand-written pages:
+    - images get the img-fluid class, and an image on its own line becomes a centered figure captioned with its alt text
+    - an <iframe> (video) on its own line becomes a centered figure captioned with its title attribute, and it shrinks
+      to fit narrow screens
+    - section headings get a <br/> above them if space_headings is set
+    """
     soup = BeautifulSoup(body_html, "html.parser")
     for img in soup.find_all("img"):
         img["class"] = img.get("class", []) + ["img-fluid"]
-        parent = img.parent
-        if parent.name == "p" and len(parent.contents) == 1:
-            figure = soup.new_tag("div", attrs={"class": "text-center"})
-            img.extract()
-            figure.append(soup.new_tag("br"))
-            figure.append(img)
-            if img.get("alt"):
-                caption = soup.new_tag("figcaption")
-                caption.string = img["alt"]
-                figure.append(caption)
-            figure.append(soup.new_tag("br"))
-            parent.replace_with(figure)
+        if img.parent.name == "p" and len(img.parent.contents) == 1:
+            center_figure(soup, img, img.get("alt"))
+    for iframe in soup.find_all("iframe"):
+        center_figure(soup, iframe, iframe.get("title"))
+        make_responsive(iframe)
+    if space_headings:
+        for heading in soup.find_all(["h1", "h2", "h3", "h4", "h5", "h6"]):
+            heading.insert_before(soup.new_tag("br"))
     return str(soup)
 
 
@@ -98,11 +130,13 @@ def convert(md_path, html_path, is_post):
         return False
     date = format_date(parse_date(meta["date"])) if is_post else None
 
-    content = style_images(render_markdown(body, 3 - (title_level or 3)))
+    # Like the hand-written pages: posts have the date and two line breaks under the title, projects just one line break.
+    # Projects also have a line break above each section heading (the newest hand-written post doesn't).
+    content = style_content(render_markdown(body, 3 - (title_level or 3)), space_headings=not is_post)
     main_html = f"""<div class="container text-left">
 <h3>{html.escape(title, quote=False)}</h3>
 {f'<time>{date}</time>' if date else ''}
-<br/><br/>
+{'<br/><br/>' if is_post else '<br/>'}
 {content}
 </div>"""
 
