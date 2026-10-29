@@ -1,6 +1,6 @@
 ## Silicon Photonic Biosensor Evaluation System
 
-The biggest project that I worked on during my final year at UBC was an evaluation system for a silicon photonic biosensor, which I worked on in a team of 6 for our capstone project.
+The biggest project that I worked on during my final year at UBC was an evaluation system for a silicon photonic biosensor, which I worked on in a team of six for our capstone project.
 
 A silicon photonic biosensor is basically a silicon chip with tiny waveguides etched onto the surface. This can be used as a biosensor by etching some clever patterns that allow one to measure the change in refractive index of the surface of the chip, and binding antibodies specific to an analyte that you want to measure to the surface of the chip. This way, when a desired analyte binds to the antibodies on the surface of the chip, the refractive index on the surface of the chip changes, and by putting light into the chip and measuring the light output, one can determine the concentration of analyte. The exact response of the chip that we want to measure is a wavelength response, where we sweep the wavelength of input light and measure the light transmitted to the output. This is essentially what our evaluation system does. It controls a low-cost laser to tune its wavelength output to sweep through a wavelength range, sends that light into the biosensor, and then we measure the light output on the output of the device. We also have to tightly control the temperature of the laser and the silicon photonic chip as they are extremely sensitive to changes in temperature. The evaluation system combines all these functions onto a single, low-cost board, where common lab setups for these experiments involve tens to hundreds of thousands of dollars of equipment spread across an entire lab bench. This system is a bridge to a portable, point-of-care system that could be used in rural health-care settings.
 
@@ -45,7 +45,7 @@ That being said, the laser current had to be tuned very precisely to achieve the
 
 ### Assembly
 
-Since we were extremely budget-constrained with this project, we hand-assembled this board using solder paste, a stencil, and manual component placement. This was helpful because it meant we weren't constrained with using components that could only be found on LCSC and it meant that we didn't have four extra devices that we didn't really need. We generally chose our SMD components to be relatively large (0805s or 0603s) since they were going to be placed by hand.
+Since we were extremely budget-constrained with this project, we hand-assembled this board using solder paste, a stencil, and manual component placement. This was helpful because it meant we weren't constrained with using components that could only be found on LCSC and it meant that we didn't have extra devices to fill the PCBA minimum that we didn't really need. We generally chose our SMD components to be relatively large (0805s or 0603s) since they were going to be placed by hand.
 
 ### Testing
 

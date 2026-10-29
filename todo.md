@@ -27,24 +27,12 @@
     - not started
 
 ## Project posts
-- webshooter
-    - done!
 - siPh biosensor
     - markdown in progress
 - rocket avionics
     - HTML in progress (started before markdown)
     - transfer to markdown and start from there
     - re-outline
-
-## Scripts
-- debug commonHeaderFooter.py and titlescript.py
-    - work on Linux, probably a windows character parsing weird issue
-- scripts need work
-    - clean them up (some really old and crappy code in there)
-    - wrangle them all together into one big script
-- finish script to generate blog and project pages (list of links)
-    - pick out header/footer from blog HTML
-    - figure out a way to not include pages
 
 ## Site
 - kind of dated, might want to give it a facelift in the near future
