@@ -4,6 +4,8 @@ exclude:
   - README.md
   - todo.md
   - requirements.txt
+  - pyproject.toml
+  - uv.lock
   - markdown
   - drafts
   - scripts

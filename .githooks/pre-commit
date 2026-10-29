@@ -3,9 +3,13 @@
 # Enable it once per clone with:  git config core.hooksPath .githooks
 # Skip it for one commit with:    git commit --no-verify
 
-# Use the project's conda env if it exists, otherwise whatever python on the PATH actually runs
+# Use the project's uv environment (.venv) or old conda env (env) if one exists, otherwise whatever python on the PATH actually runs
 # (on Windows, python3 can be a Microsoft Store shortcut that doesn't)
-if [ -x env/python.exe ]; then
+if [ -x .venv/Scripts/python.exe ]; then
+    PYTHON=.venv/Scripts/python.exe
+elif [ -x .venv/bin/python ]; then
+    PYTHON=.venv/bin/python
+elif [ -x env/python.exe ]; then
     PYTHON=env/python.exe
 elif [ -x env/bin/python ]; then
     PYTHON=env/bin/python

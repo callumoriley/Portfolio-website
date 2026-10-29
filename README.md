@@ -60,7 +60,7 @@ If a hand-written page already exists with the same name, publishing the markdow
 
 ## The scripts
 
-Install the dependencies once with `pip install -r requirements.txt`. All of the scripts can be run from any directory.
+Install the dependencies once with `uv sync` (or `pip install -r requirements.txt`), then run scripts with `uv run python scripts/...`. All of the scripts can be run from any directory.
 
 | Script | What it does |
 | --- | --- |
@@ -103,7 +103,7 @@ Git doesn't enable hooks from a cloned repository, so run this once in each clon
 git config core.hooksPath .githooks
 ```
 
-- It uses `env/python.exe` (the conda environment in this folder) if it exists, otherwise `python3`/`python`.
+- It uses `.venv` (the uv environment in this folder) or `env/python.exe` (the old conda environment) if one exists, otherwise `python3`/`python`.
 - If you have **unstaged** changes to `.html` files it stops and asks you to stage or stash them first, because the build
   rewrites every page and would mix your changes with its own.
 - If the build crashes, the commit is aborted. Run `python scripts/build_site.py` by hand to see the error.
@@ -112,7 +112,7 @@ git config core.hooksPath .githooks
 
 ## GitHub Action
 
-`.github/workflows/check-links.yml` runs `scripts/check_links.py` on every push to `gh-pages`, on every pull request, and on
+`.github/workflows/check-links.yml` installs the packages from `uv.lock` with uv and runs `scripts/check_links.py` on every push to `gh-pages`, on every pull request, and on
 demand from the Actions tab. It fails (red cross, and an email from GitHub) if a page or markdown file links to something
 that doesn't exist or has the wrong capitalisation. It only reads the repository: it never changes or commits anything, so
 there is nothing to pull afterwards. The list of unused images it prints is just for information.
