@@ -14,7 +14,7 @@ The site is plain HTML with Bootstrap. A few Python scripts in `scripts/` genera
 | `posts/`, `projects/` | Finished pages. Either generated from `markdown/` or written by hand. |
 | `drafts/posts/`, `drafts/projects/` | Unfinished hand-written pages. Never listed and not published. |
 | `markdown/posts/`, `markdown/projects/` | Markdown sources that become pages in `posts/` and `projects/`. |
-| `assets/<page name>/` | Images, in one folder per page named after the page (`assets/ballRobot/` for `projects/ballRobot.html`). `assets/unused/` is for images no page uses. |
+| `assets/<page name>/` | Images, in one folder per page named after the page (`assets/ballRobot/` for `projects/ballRobot.html`). |
 | `scripts/` | The scripts described below. |
 
 ## Drafts
