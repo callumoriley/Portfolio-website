@@ -1,0 +1,29 @@
+name: Check links
+
+# Fails if a page or markdown file links to an image, video or page that doesn't exist (or that has the wrong
+# capitalisation, which works on Windows but breaks on GitHub Pages). It only reads the repository: it never commits.
+on:
+  push:
+    branches: [gh-pages]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check-links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Check links
+        run: python scripts/check_links.py

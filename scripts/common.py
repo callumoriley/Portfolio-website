@@ -87,6 +87,23 @@ def relative_header(header, depth):
     return re.sub(r'href="(?![a-z]+:|#|/)', 'href="' + "../" * depth, header)
 
 
+def exists_exact(path):
+    """
+    Whether the file exists with exactly this capitalisation. GitHub Pages is case-sensitive, but Windows and macOS
+    aren't, so a link with the wrong capitalisation works on your computer and is broken on the site.
+    """
+    try:
+        parts = Path(os.path.normpath(os.path.abspath(path))).relative_to(ROOT).parts
+    except ValueError:
+        return False  # outside the repository
+    current = ROOT
+    for part in parts:
+        if not current.is_dir() or part not in os.listdir(current):
+            return False
+        current = current / part
+    return True
+
+
 def fix_asset_paths(html, path):
     """
     Points the page's links to assets/ at the right place for the folder the page is in, so pages can be moved between
@@ -98,9 +115,9 @@ def fix_asset_paths(html, path):
     def fix(match):
         name = match.group(2)
         assets_dir = ROOT / "assets"
-        if in_drafts and (DRAFTS_DIR / "assets" / name).exists():
+        if in_drafts and exists_exact(DRAFTS_DIR / "assets" / name):
             assets_dir = DRAFTS_DIR / "assets"
-        elif not (assets_dir / name).exists():
+        elif not exists_exact(assets_dir / name):
             print(f"Warning: {Path(path).resolve().relative_to(ROOT)} links to a missing image: assets/{name}")
         return match.group(1) + os.path.relpath(assets_dir, page_dir).replace(os.sep, "/") + "/" + name
 
